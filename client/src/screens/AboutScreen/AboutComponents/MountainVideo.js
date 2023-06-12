@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import ParkIcon from "@mui/icons-material/Park";
 import mountain1 from "../../../assets/videos/mountain1.mp4";
+import { Link } from "react-router-dom";
 
 const MountainVideo = () => {
   const targetRef = useRef(null);
@@ -74,6 +75,17 @@ const MountainVideo = () => {
               to visit can be a challenge.
             </p>
             <p>Let us help you get there. Keep scrolling to find out how.</p>
+            <motion.div
+              className="about-link-button"
+              whileHover={{
+                background:
+                  "linear-gradient(to bottom right, #d37ad6, #ff8838)",
+              }}
+            >
+              <Link to="/Explore">
+                <h2>Explore parks</h2>
+              </Link>
+            </motion.div>
           </div>
           <div className="scroll-icon-small">
             <KeyboardDoubleArrowDownIcon fontSize="inherit" />

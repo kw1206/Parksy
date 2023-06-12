@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 import desert1 from "../../../assets/videos/desert1.mp4";
+import { Link } from "react-router-dom";
 
 const DesertVideo = () => {
   const targetRef = useRef(null);
@@ -75,6 +76,17 @@ const DesertVideo = () => {
               planning. Make the most of the time you have by making a plan:
               travel now or travel later -- just not never.
             </p>
+            <motion.div
+              className="about-link-button"
+              whileHover={{
+                background:
+                  "linear-gradient(to bottom right, #d37ad6, #ff8838)",
+              }}
+            >
+              <Link to="/Plan">
+                <h2>Plan your trip</h2>
+              </Link>
+            </motion.div>
           </div>
           <div className="scroll-icon-small">
             <KeyboardDoubleArrowDownIcon fontSize="inherit" />

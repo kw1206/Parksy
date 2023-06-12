@@ -24,7 +24,7 @@ const Contact = () => {
         transition={{ delay: 2, duration: 1 }}
       >
         <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-        <div>Contact</div>
+        <div>Contact me please!!!</div>
       </motion.div>
     </div>
   );

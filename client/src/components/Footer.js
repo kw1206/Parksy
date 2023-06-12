@@ -4,17 +4,10 @@ import EmailIcon from "@mui/icons-material/Email";
 
 const Footer = () => {
   return (
-    <>
       <div className="footer">
-        Footer
-        <a>
-          <GitHubIcon />
-        </a>
-        <a>
-          <EmailIcon />
-        </a>
+        <GitHubIcon href="https://github.com/kw1206/Parksy" />
+        <EmailIcon />
       </div>
-    </>
   );
 };
 

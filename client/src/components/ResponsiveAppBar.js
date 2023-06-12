@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import parksy_white from "../assets/logos/parksy_white.png";
 
-const pages = ["Home", "About", "Plan", "Explore", "Guide Me", "Contact"];
+const pages = ["Home", "About", "Explore", "Guide Me", "Plan"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
