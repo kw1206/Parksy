@@ -53,9 +53,9 @@ const Explore = () => {
       >
         <Hiker2Video />
         <div className="explore-intro-copy">
-          <h1>Discover places to explore!</h1>
+          <h1>Discover places to explore</h1>
           <p>
-            On this page you can browse summaries of all 63 U.S. National Parks.
+            Browse summaries of all 63 U.S. National Parks at the links below.
             <br />
             Refine your destination options by filtering for criteria that suits
             your needs and goals.
