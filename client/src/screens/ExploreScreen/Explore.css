@@ -39,7 +39,7 @@
   height:fit-content;
   display: flex;
   flex-direction: row;
-  background-image: linear-gradient(to top right, #a376bb, #0298c9);
+  background-image: linear-gradient(to bottom right, #d37ad6, #ff8838);
 }
 
 .search-box {

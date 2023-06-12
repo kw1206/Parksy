@@ -53,7 +53,7 @@ const Explore = () => {
       >
         <Hiker2Video />
         <div className="explore-intro-copy">
-          <h1>Discover places to explore</h1>
+          <h1>Discover places to explore!</h1>
           <p>
             On this page you can browse summaries of all 63 U.S. National Parks.
             <br />

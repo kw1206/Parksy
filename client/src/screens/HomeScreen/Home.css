@@ -1,0 +1,67 @@
+.home-video {
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.home-video-copy {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.home-video-copy h1 {
+  font-size: 3em;
+}
+
+.home-video-copy img {
+  width: 55%;
+  /* border: 2px solid red */
+}
+
+.home-video-copy p {
+  font-size: 2em;
+}
+
+.parksy-options {
+  display: flex;
+  flex-direction: row;
+  /* border: 2px solid red; */
+  justify-content: center;
+  align-items: center;
+  padding: 20px
+}
+
+.plan-your-trip, .guide-me,
+.explore-parks {
+  border: 3px solid white;
+  width: 25%;
+  margin: 2%;
+  padding: 5% 0;
+  position: relative;
+}
+
+.plan-your-trip h2,
+.explore-parks h2, .guide-me h2 {
+    font-size: 2.5em;
+}
+
+.plan-trip-hover,
+.explore-hover {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -54,14 +54,19 @@ html {
 }
 
 .footer {
-  position: sticky;
+  position: relative;
   bottom: 0;
-  border: 2px solid red;
-  height: 40px;
-  width: calc(100% - 4px);
+  left: 0;
+  width: 100%;
+  padding: 20;
   background-color: #052922;
+
 }
 
-/* a:hover {
-  color: #065749
-} */
+.footer > * {
+  padding: 10px
+}
+
+.footer a:hover {
+  color: #d37ad6
+}

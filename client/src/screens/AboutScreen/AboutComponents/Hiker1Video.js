@@ -4,6 +4,7 @@ import hiker1 from "../../../assets/videos/hiker1.mp4";
 import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import HikingIcon from "@mui/icons-material/Hiking";
+import { Link } from "react-router-dom";
 
 const Hiker1Video = () => {
   const targetRef = useRef(null);
@@ -61,11 +62,18 @@ const Hiker1Video = () => {
           <div className="text">
             <h1>Start here</h1>
             <p>
-              Are you ready to hit the trail? Click the icon below to start planning your National Park visit.</p>
+              Are you ready to hit the trail? Click the icon below to start
+              planning your National Park visit.
+            </p>
           </div>
-          <motion.div whileHover={{scale: 1.5}} className="scroll-icon-small">
-            <PlayCircleFilledIcon fontSize="inherit" color="inherit"/>
-          </motion.div>
+          <Link to="/Home">
+            <motion.div
+              whileHover={{ scale: 1.5 }}
+              className="scroll-icon-small"
+            >
+              <PlayCircleFilledIcon fontSize="inherit" color="inherit" />
+            </motion.div>
+          </Link>
         </motion.div>
       </div>
     </>

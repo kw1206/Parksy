@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
-import MapIcon from '@mui/icons-material/Map';
+import MapIcon from "@mui/icons-material/Map";
 import ocean1 from "../../../assets/videos/ocean1.mp4";
+import { Link } from "react-router-dom";
 
 const OceanVideo = () => {
   const targetRef = useRef(null);
@@ -62,16 +63,28 @@ const OceanVideo = () => {
             <h1>Find your way</h1>
             <p>
               Time, weather, distance, budget, recreation, and visitation
-              activity have huge impacts on a traveler's experience. Balancing these factors and planning ahead can help ensure your National Park
-              visit aligns with your travel priorities.
+              activity have huge impacts on a traveler's experience. Balancing
+              these factors and planning ahead can help ensure your National
+              Park visit aligns with your travel priorities. We provide the
+              tools to help you find your way.
             </p>
-            <p>We provide the tools to help you find your way.</p>
             <p>
               By distilling data compiled from a variety of sources, including
               the National Park Service, weather and travel reports, and social
               media, we help you build an optimized roadmap to reach your
               National Park destination.
             </p>
+            <motion.div
+              className="about-link-button"
+              whileHover={{
+                background:
+                  "linear-gradient(to bottom right, #d37ad6, #ff8838)",
+              }}
+            >
+              <Link to="/Guide Me">
+                <h2>Guide me</h2>
+              </Link>
+            </motion.div>
           </div>
           <div className="scroll-icon-small">
             <KeyboardDoubleArrowDownIcon fontSize="inherit" />
