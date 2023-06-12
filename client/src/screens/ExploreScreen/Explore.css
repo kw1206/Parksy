@@ -1,0 +1,115 @@
+.explore-video-container {
+  width: 100%;
+  height: 50vh;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hiker-video {
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.explore-intro-copy {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.explore-intro-copy > * {
+  margin: 20px;
+}
+
+.explore-bar {
+  border-radius: 25px;
+  padding: 25px;
+  width: 90%;
+  margin: auto;
+  height:fit-content;
+  display: flex;
+  flex-direction: row;
+  background-image: linear-gradient(to top right, #a376bb, #0298c9);
+}
+
+.search-box {
+  /* padding: 20px; */
+  width: fit-content;
+  text-align: left;
+  align-items: center;
+}
+
+.search-box > * {
+  margin: 5px;
+  /* border: 2px solid red */
+}
+
+.search-field {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px solid red */
+}
+.autocomplete-field {
+  /* width: 300px; */
+}
+
+.search-button {
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px solid red; */
+  background-color: #FF8838;
+}
+
+.park-card-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid red;
+  width: 90%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.park-card {
+  width: 400px;
+  height: 300px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  /* border: 1px solid black */
+}
+
+.park-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.park-card-info {
+  position: absolute;
+  margin: auto;
+  width: inherit;
+  padding: 15px 0;
+  /* padding: 20px; */
+  background-color: rgba(0, 0, 0, 0.6);
+}

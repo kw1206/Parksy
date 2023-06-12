@@ -1,0 +1,76 @@
+.video-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-video {
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.video-copy {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.video-copy p {
+  font-size: 8em;
+}
+
+.scroll-icon {
+  font-size: 5em;
+  position: absolute;
+  bottom: 0;
+}
+
+.between-text {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 6em;
+}
+
+.between-text h1 {
+  font-size: 50px;
+}
+
+.between-text p {
+  font-size: 20px;
+  margin: 40px;
+}
+
+.between-text a {
+  font-size: 20px;
+}
+.text {
+  margin: 60px;
+}
+.scroll-icon-small {
+  font-size: 50px;
+  margin: auto;
+  width: fit-content;
+  justify-self: center;
+}
