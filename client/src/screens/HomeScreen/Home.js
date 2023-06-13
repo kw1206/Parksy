@@ -1,21 +1,49 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import forest1 from "../../assets/videos/forest1.mp4";
 import parksy_white from "../../assets/logos/parksy_white.png";
 import { Link } from "react-router-dom";
+import LoadingAnimation from "../../components/LoadingAnimation.js";
 require("./Home.css");
 
 const Home = () => {
-  const targetRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start start", "start end"],
-  });
+  const [loading, setLoading] = useState(true);
 
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
 
-  return (
-    <>
+    return () => clearTimeout(timeout);
+  }, []);
+
+  useLayoutEffect(() => {
+    const handlePageLoad = () => {
+      setLoading(false);
+    };
+
+    window.addEventListener("load", handlePageLoad);
+    return () => window.removeEventListener("load", handlePageLoad);
+  }, []);
+
+  return loading ? (
+    <motion.div
+      className="loading-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <LoadingAnimation />
+    </motion.div>
+  ) : (
+    <motion.div
+      className="page-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="video-container">
         <video className="home-video" src={forest1} autoPlay loop muted />
         <div className="home-video-copy">
@@ -92,7 +120,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-    </>
+    </motion.div>
   );
 };
 
