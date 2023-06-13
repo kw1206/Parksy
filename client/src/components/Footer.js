@@ -1,13 +1,15 @@
 import React from "react";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import EmailIcon from "@mui/icons-material/Email";
-
+import { Link } from "react-router-dom";
 const Footer = () => {
   return (
-      <div className="footer">
-        <GitHubIcon href="https://github.com/kw1206/Parksy" />
+    <div className="footer">
+      <Link to="/Contact" className="link-to-contact">
         <EmailIcon />
-      </div>
+        <p>Contact</p>
+      </Link>
+    </div>
   );
 };
 

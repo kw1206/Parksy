@@ -7,15 +7,27 @@ app.use(express.json());
 app.use(cors());
 
 // app.use(express.static(path.join(__dirname, "..", "public")))
+// app.use("/api", require("./api"));
 
-app.get("/", (req, res) => {
-  res.json("hi!");
-});
-
+// PARK ROUTES
 app.get("/api/parks", (req, res) => {
   const getAllParks = "SELECT * FROM parks";
   console.log("running -->", getAllParks);
   db.query(getAllParks, (error, data) => {
+    if (error) {
+      console.log(error);
+      return res.json(error);
+    }
+    console.log(data);
+    return res.json(data);
+  });
+});
+
+app.get("/api/parks/:id", (req, res) => {
+  const id = req.params.id;
+  const getPark = `SELECT * FROM parks WHERE park_id = ${id}`;
+  console.log("running -->", getPark);
+  db.query(getPark, (error, data) => {
     if (error) {
       console.log(error);
       return res.json(error);
@@ -51,6 +63,39 @@ app.post("/api/parks", (req, res) => {
       console.log(data);
       return res.json("park added to the database!");
     });
+  });
+});
+
+// USER ROUTES
+// need to add middleware to verify authorization to user account
+app.get("/api/users/:id", (req, res) => {
+  const id = req.params.id;
+  const getUser = `SELECT * FROM users WHERE user_id = ${id}`;
+  console.log("running -->", getUser);
+  db.query(getUser, (error, data) => {
+    if (error) {
+      console.log(error);
+      return res.json(error);
+    }
+    console.log(data);
+    return res.json(data);
+  });
+});
+
+app.post("/api/register", (req, res) => {
+  const dataToInsert = req.body;
+  const insertNewUser =
+    "INSERT INTO users (firstName, lastName, email, phone, password) VALUES (?)";
+  console.log(dataToInsert);
+  console.log(insertNewUser);
+  db.query(insertNewUser, [dataToInsert], (error, data) => {
+    console.log("inserting --> ", dataToInsert);
+    if (error) {
+      console.log(error);
+      return res.json(error);
+    }
+    console.log(data);
+    return res.json("new user added to the database!");
   });
 });
 

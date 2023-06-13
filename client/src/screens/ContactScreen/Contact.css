@@ -1,0 +1,18 @@
+.contact-page {
+    height: 100vh;
+    width: 100%;
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.about-me {
+    border: 2px solid red;
+    width: 50%;
+    text-align: left;
+    margin: 20px;
+    padding: 20px
+}
