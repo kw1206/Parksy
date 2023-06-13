@@ -1,0 +1,16 @@
+.register-container {
+    border: 2px solid red;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    color: black;
+}
+
+.register-button {
+    color: black
+}
