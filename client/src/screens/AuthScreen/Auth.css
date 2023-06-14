@@ -1,0 +1,110 @@
+.login-register-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box,
+.register-box {
+  border-radius: 25px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+}
+
+.login-box {
+  background: linear-gradient(to top right, #44707f, #0298c9);
+}
+
+.register-box {
+  background: linear-gradient(to bottom right, #d37ad6, #ff8838);
+}
+
+.login-box > *,
+.register-box > * {
+  margin: 2%;
+}
+
+.auth-form > * {
+  margin: 2%;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  box-sizing: content-box;
+}
+
+.auth-form input {
+  color: black;
+  padding: 10px;
+  margin: 5px 0px 0px 0px;
+  border: 0px;
+  width: 250px;
+  align-self: center;
+}
+
+.password-input {
+  width: 250px;
+  margin: 5px 0px 0px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  align-self: left;
+  width: 100%
+}
+
+.password-input input {
+  margin: 0;
+  width: 207px
+}
+
+.eye {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: right;
+    text-align: center;
+    width: 40px
+}
+
+.auth-form p {
+  font-size: .8em;
+}
+
+.register-button,
+.login-button {
+  color: white;
+  background-color: #065749;
+  font-size: 1em;
+  padding: 10px;
+  margin: 10px 0px 0px 0px;
+  border: 0;
+}
+
+.clear-form {
+  background-color: transparent;
+  border: 0;
+  text-decoration: underline;
+}
+
+.switch-login-register {
+  display: flex;
+  flex-direction: column;
+  margin: 25 0 0 0;
+}
+
+.switch-to-register,
+.switch-to-login {
+  background-color: transparent;
+  border: 0px;
+  font-size: 1em;
+  text-decoration: underline;
+}
