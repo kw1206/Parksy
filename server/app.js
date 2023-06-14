@@ -68,9 +68,23 @@ app.post("/api/parks", (req, res) => {
 
 // USER ROUTES
 // need to add middleware to verify authorization to user account
-app.get("/api/users/:id", (req, res) => {
-  const id = req.params.id;
-  const getUser = `SELECT * FROM users WHERE user_id = ${id}`;
+app.get("/api/users/:email", (req, res) => {
+  const email = req.params.email;
+  const getUser = `SELECT * FROM users WHERE email = ${email}`;
+  console.log("running -->", getUser);
+  db.query(getUser, (error, data) => {
+    if (error) {
+      console.log(error);
+      return res.json(error);
+    }
+    console.log(data);
+    return res.json(data);
+  });
+});
+
+app.get("/api/users/:phone", (req, res) => {
+  const phone = req.params.phone;
+  const getUser = `SELECT * FROM users WHERE phone = ${phone}`;
   console.log("running -->", getUser);
   db.query(getUser, (error, data) => {
     if (error) {
