@@ -10,19 +10,18 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 require("./Auth.css");
 
 const Register = () => {
-
   const [loading, setLoading] = useState(true);
-  
+
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [pword, setPword] = useState("");
+  const [pw, setPw] = useState("");
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [visible, setVisible] = useState(false);
-  
+
   const [loginOrRegister, setLoginOrRegister] = useState("login");
-  
+
   const [loginRegisterMessage, setLoginRegisterMessage] = useState("");
 
   useEffect(() => {
@@ -47,13 +46,13 @@ const Register = () => {
     setLname("");
     setEmail("");
     setPhone("");
-    setPword("");
+    setPw("");
     setEmailOrPhone("");
   };
 
   const toggleLoginRegister = () => {
     clear();
-    setLoginRegisterMessage("")
+    setLoginRegisterMessage("");
     if (loginOrRegister === "login") return setLoginOrRegister("register");
     return setLoginOrRegister("login");
   };
@@ -79,9 +78,9 @@ const Register = () => {
     e.preventDefault();
 
     const salt = bcrypt.genSaltSync(10);
-    const hashedPword = bcrypt.hashSync(pword, salt);
+    const hashedPw = bcrypt.hashSync(pw, salt);
 
-    const newUserData = [fname, lname, email, phone, hashedPword];
+    const newUserData = [fname, lname, email, phone, hashedPw];
     console.log(newUserData);
 
     try {
@@ -97,7 +96,7 @@ const Register = () => {
       // can use below if decide to combine register and login forms
       // window.localStorage.setItem(
       //   "login",
-      //   JSON.stringify({ email, hashedPword })
+      //   JSON.stringify({ email, hashedPw })
       // );
     } catch (error) {
       console.log(error);
@@ -116,8 +115,10 @@ const Register = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const lettersOrPunctuation = /[a-zA-Z!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
+
+    // test if the user input credential is an email or phone number
     let loginMethod;
+    const lettersOrPunctuation = /[a-zA-Z!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
     if (
       emailOrPhone.includes("@") &&
       emailOrPhone.charAt(emailOrPhone.length - 4) === "."
@@ -134,27 +135,14 @@ const Register = () => {
     }
 
     try {
-      const { data } = await axios.get(
-        `http://localhost:3001/api/login/${loginMethod}/${emailOrPhone.toString()}`
-      );
-      if (data) {
-        console.log("data --> ", data);
-        let hashedPword = data[0].password;
-        if (bcrypt.compareSync(pword, hashedPword)) {
-          return console.log("Login successful!");
-        } else {
-          setLoginRegisterMessage(
-            `Login attempted failed. Please check and renter your login credentials or click "Register" to create a new account.`
-          );
-          return console.log(loginRegisterMessage);
-        }
-      } else {
-        return console.log(loginRegisterMessage);
-      }
+      const res = await axios.post("http://localhost:3001/api/login/", {
+        loginMethod: loginMethod,
+        emailOrPhone: emailOrPhone.toString(),
+        pw: pw,
+      });
+      if (res.data.errorMessage) setLoginRegisterMessage(res.data.errorMessage);
     } catch (error) {
-      setLoginRegisterMessage(
-        `Login attempted failed. Please check and re-enter your login credentials or click "Register" to create a new account.`
-      );
+      setLoginRegisterMessage(`Login attempted failed. Please try again.`);
       return console.log(error);
     }
   };
@@ -195,14 +183,13 @@ const Register = () => {
                 value={emailOrPhone}
                 onChange={(e) => setEmailOrPhone(e.target.value)}
               />
-              {/* <br /> */}
               <div className="password-input">
                 <input
                   type={visible ? "text" : "password"}
                   placeholder="password"
                   required
-                  value={pword}
-                  onChange={(e) => setPword(e.target.value)}
+                  value={pw}
+                  onChange={(e) => setPw(e.target.value)}
                 />
                 <div className="eye" onClick={() => togglePasswordVisibility()}>
                   {visible ? (
@@ -271,8 +258,8 @@ const Register = () => {
                   required
                   minLength={8}
                   maxLength={20}
-                  value={pword}
-                  onChange={(e) => setPword(e.target.value)}
+                  value={pw}
+                  onChange={(e) => setPw(e.target.value)}
                 />
                 <div className="eye" onClick={() => togglePasswordVisibility()}>
                   {"   "}

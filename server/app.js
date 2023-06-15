@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import db from "./config/db.js";
-
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -67,33 +68,37 @@ app.post("/api/parks", (req, res) => {
 });
 
 // USER ROUTES
-// need to add middleware to verify authorization to user account
-app.get("/api/login/email/:email", (req, res) => {
-  const email = req.params.email;
-  console.log("email received on backend --> ", email)
-  const getUser = `SELECT * FROM users WHERE email = "${email}"`;
-  console.log("running -->", getUser);
-  db.query(getUser, (error, data) => {
-    if (error) {
-      console.log(error);
-      return res.json(error);
-    }
-    console.log(data);
-    return res.json(data);
-  });
-});
+app.post("/api/login/", (req, res) => {
+  const loginMethod = req.body.loginMethod;
+  const emailOrPhone = req.body.emailOrPhone;
+  const pw = req.body.pw;
+  console.log("req.body --> ", req.body);
+  const getUser = `SELECT * FROM users WHERE ${loginMethod} = "${emailOrPhone}"`;
 
-app.get("/api/login/phone/:phone", (req, res) => {
-  const phone = req.params.phone;
-  const getUser = `SELECT * FROM users WHERE phone = ${phone}`;
   console.log("running -->", getUser);
+
   db.query(getUser, (error, data) => {
+    // if there is an error making the request to the db
     if (error) {
-      console.log(error);
-      return res.json(error);
+      console.log("login error --> ", error)
+      res.json({error: error, errorMessage: "There was a problem logging you in. Please try again."});
     }
-    console.log("retrieved user data -->", data);
-    return res.json(data);
+
+    // if the request is successful and the user exists
+    if (data.length > 0) {
+      const pwMatch = bcrypt.compareSync(pw, data[0].password)
+      console.log("pwMatch --> ", pwMatch)
+      if (pwMatch) {
+        console.log("passwords match")
+        res.json(data);
+      } else {
+        res.json({errorMessage: "The password you entered is incorrect. Please try again."});
+      }
+    } else {
+      // if a user does not exist
+      res.json({errorMessage: `The user you have entered does not exist. Please try again or click "Register" to create an account.`});
+    }
+
   });
 });
 
