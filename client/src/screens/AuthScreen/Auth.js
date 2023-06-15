@@ -10,15 +10,20 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 require("./Auth.css");
 
 const Register = () => {
+
   const [loading, setLoading] = useState(true);
+  
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [pword, setPword] = useState("");
   const [emailOrPhone, setEmailOrPhone] = useState("");
-  const [loginOrRegister, setLoginOrRegister] = useState("login");
   const [visible, setVisible] = useState(false);
+  
+  const [loginOrRegister, setLoginOrRegister] = useState("login");
+  
+  const [loginRegisterMessage, setLoginRegisterMessage] = useState("");
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -37,9 +42,26 @@ const Register = () => {
     return () => window.removeEventListener("load", handlePageLoad);
   }, []);
 
+  const clear = () => {
+    setFname("");
+    setLname("");
+    setEmail("");
+    setPhone("");
+    setPword("");
+    setEmailOrPhone("");
+  };
+
+  const toggleLoginRegister = () => {
+    clear();
+    setLoginRegisterMessage("")
+    if (loginOrRegister === "login") return setLoginOrRegister("register");
+    return setLoginOrRegister("login");
+  };
+
   const togglePasswordVisibility = () => {
     visible ? setVisible(false) : setVisible(true);
   };
+
   // const formatPhone = (e) => {
   //   if (!e.target.value) return e.target.value;
   //   const phoneNum = e.target.value.replace(/[^\d]/g, "");
@@ -62,73 +84,78 @@ const Register = () => {
     const newUserData = [fname, lname, email, phone, hashedPword];
     console.log(newUserData);
 
-    await axios
-      .post("http://localhost:3001/api/register", newUserData)
-      .then((response) => {
-        console.log(response);
-      });
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3001/api/register",
+        newUserData
+      );
+      setLoginRegisterMessage(
+        `Account created! Click "Login" above to get started.`
+      );
+      return console.log("New user created.");
 
-    // can use below if decide to combine register and login forms
-    // window.localStorage.setItem('login', JSON.stringify({email, hashedPword}))
-
-    setFname("");
-    setLname("");
-    setEmail("");
-    setPhone("");
-    setPword("");
+      // can use below if decide to combine register and login forms
+      // window.localStorage.setItem(
+      //   "login",
+      //   JSON.stringify({ email, hashedPword })
+      // );
+    } catch (error) {
+      console.log(error);
+      if (error.code === "ERR_DUP_ENTRY") {
+        setLoginRegisterMessage(
+          "An account with that email or password already exists. Please enter a different email and/or phone to sign up."
+        );
+        return console.log(loginRegisterMessage);
+      }
+      setLoginRegisterMessage(
+        "An error occurred while registering your account.  Please try again."
+      );
+      return console.log(loginRegisterMessage);
+    }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     const lettersOrPunctuation = /[a-zA-Z!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
+    let loginMethod;
     if (
       emailOrPhone.includes("@") &&
       emailOrPhone.charAt(emailOrPhone.length - 4) === "."
     ) {
-      console.log("valid email entered");
-      // try {
-      //   await axios.get(`http://localhost:3001/api/${email}`).then((res) => {
-      //     if (res.data.exists()) {
-      //       let hashedPword = res.data[0].columns.password;
-      //       console.log("hashedPword --> ", hashedPword);
-
-      //       if (bcrypt.compareSync(pword, hashedPword)) {
-      //         console.log("login successful");
-      //       } else {
-      //         console.log("login failed");
-      //       }
-      //     } else {
-      //       console.log("user does not exist");
-      //     }
-      //   });
-      // } catch (error) {
-      //   console.log(error);
-      // }
+      loginMethod = "email";
     } else if (
       emailOrPhone.toString().length === 10 &&
       !lettersOrPunctuation.test(emailOrPhone)
     ) {
-      console.log("valid phone number entered");
-      // try {
-      //   await axios.get(`http://localhost:3001/api/${phone}`).then((res) => {
-      //     if (res.data.exists()) {
-      //       let hashedPword = res.data[0].columns.password;
-      //       console.log("hashedPword --> ", hashedPword);
-
-      //       if (bcrypt.compareSync(pword, hashedPword)) {
-      //         console.log("login successful");
-      //       } else {
-      //         console.log("login failed");
-      //       }
-      //     } else {
-      //       console.log("user does not exist");
-      //     }
-      //   });
-      // } catch (error) {
-      //   console.log(error);
-      // }
+      loginMethod = "phone";
     } else {
-      console.log("invalid input");
+      setLoginRegisterMessage("Invalid email or phone");
+      return console.log(loginRegisterMessage);
+    }
+
+    try {
+      const { data } = await axios.get(
+        `http://localhost:3001/api/login/${loginMethod}/${emailOrPhone.toString()}`
+      );
+      if (data) {
+        console.log("data --> ", data);
+        let hashedPword = data[0].password;
+        if (bcrypt.compareSync(pword, hashedPword)) {
+          return console.log("Login successful!");
+        } else {
+          setLoginRegisterMessage(
+            `Login attempted failed. Please check and renter your login credentials or click "Register" to create a new account.`
+          );
+          return console.log(loginRegisterMessage);
+        }
+      } else {
+        return console.log(loginRegisterMessage);
+      }
+    } catch (error) {
+      setLoginRegisterMessage(
+        `Login attempted failed. Please check and re-enter your login credentials or click "Register" to create a new account.`
+      );
+      return console.log(error);
     }
   };
 
@@ -185,7 +212,6 @@ const Register = () => {
                   )}
                 </div>
               </div>
-              {/* <br /> */}
               <button className="login-button" type="submit">
                 Login
               </button>
@@ -194,7 +220,7 @@ const Register = () => {
               <p>Don't have an account?</p>
               <button
                 className="switch-to-register"
-                onClick={() => setLoginOrRegister("register")}
+                onClick={() => toggleLoginRegister()}
               >
                 Register
               </button>
@@ -248,32 +274,33 @@ const Register = () => {
                   value={pword}
                   onChange={(e) => setPword(e.target.value)}
                 />
-                <div className="eye" onClick={() => togglePasswordVisibility()}>{"   "}
-                  {visible ? (
-                    <VisibilityOffIcon  />
-                  ) : (
-                    <VisibilityIcon  />
-                  )}
+                <div className="eye" onClick={() => togglePasswordVisibility()}>
+                  {"   "}
+                  {visible ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 </div>
               </div>
               <p>password must be between 8 and 25 characters long</p>
               <button className="register-button" type="submit">
                 Register
               </button>
-              {/* <br /> */}
-              <button className="clear-form">Clear form</button>
+              <button className="clear-form" onClick={() => clear()}>
+                Clear form
+              </button>
             </form>
             <div className="switch-login-register">
               <p>Already have an account?</p>
               <button
                 className="switch-to-login"
-                onClick={() => setLoginOrRegister("login")}
+                onClick={() => toggleLoginRegister()}
               >
                 Login
               </button>
             </div>
           </motion.div>
         )}
+        <div className="error-message">
+          <h4>{loginRegisterMessage}</h4>
+        </div>
       </div>
     </motion.div>
   );
