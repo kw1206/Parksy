@@ -61,19 +61,6 @@ const Register = () => {
     visible ? setVisible(false) : setVisible(true);
   };
 
-  // const formatPhone = (e) => {
-  //   if (!e.target.value) return e.target.value;
-  //   const phoneNum = e.target.value.replace(/[^\d]/g, "");
-  //   if (phoneNum.length < 4) return setEmailOrPhone(phoneNum);
-  //   if (phoneNum.length < 7) {
-  //     return setEmail(`(${phoneNum.slice(0, 3)}) ${phoneNum.slice(3)}`);
-  //   }
-  //   return setEmailOrPhone(`(${phoneNum.slice(0, 3)}) ${phoneNum.slice(3, 6)}-${phoneNum.slice(
-  //     6,
-  //     10
-  //   )}`);
-  // };
-
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -81,35 +68,28 @@ const Register = () => {
     const hashedPw = bcrypt.hashSync(pw, salt);
 
     const newUserData = [fname, lname, email, phone, hashedPw];
-    console.log(newUserData);
 
     try {
       const { data } = await axios.post(
         "http://localhost:3001/api/register",
         newUserData
       );
-      setLoginRegisterMessage(
-        `Account created! Click "Login" above to get started.`
-      );
-      return console.log("New user created.");
 
-      // can use below if decide to combine register and login forms
-      // window.localStorage.setItem(
-      //   "login",
-      //   JSON.stringify({ email, hashedPw })
-      // );
-    } catch (error) {
-      console.log(error);
-      if (error.code === "ERR_DUP_ENTRY") {
-        setLoginRegisterMessage(
+      if (data.code === "ER_DUP_ENTRY")
+        return setLoginRegisterMessage(
           "An account with that email or password already exists. Please enter a different email and/or phone to sign up."
         );
-        return console.log(loginRegisterMessage);
-      }
-      setLoginRegisterMessage(
-        "An error occurred while registering your account.  Please try again."
+
+      if (data.code === "ERR_NETWORK")
+        return setLoginRegisterMessage(
+          "A network error occurred while registering your account.  Please try again."
+        );
+
+      return setLoginRegisterMessage(
+        `Account created! Click "Login" above to get started.`
       );
-      return console.log(loginRegisterMessage);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -134,14 +114,23 @@ const Register = () => {
       return console.log(loginRegisterMessage);
     }
 
+    // attempt login
     try {
-      const res = await axios.post("http://localhost:3001/api/login/", {
+      const { data } = await axios.post("http://localhost:3001/api/login/", {
         loginMethod: loginMethod,
         emailOrPhone: emailOrPhone.toString(),
         pw: pw,
       });
-      if (res.data.errorMessage) setLoginRegisterMessage(res.data.errorMessage);
+
+      // if the returned data contains a property called "errorMessage", set the loginRegisterMessage to the errorMessage
+      if (data.errorMessage) return setLoginRegisterMessage(data.errorMessage);
+
+      // if there is no error, set the token in the local storage
+      window.localStorage.setItem( "token", data.token)
+      return console.log("data --> ", data);
+
     } catch (error) {
+      // if there is any other kind of error during login
       setLoginRegisterMessage(`Login attempted failed. Please try again.`);
       return console.log(error);
     }

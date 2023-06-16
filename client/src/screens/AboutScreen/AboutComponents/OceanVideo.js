@@ -81,8 +81,8 @@ const OceanVideo = () => {
                   "linear-gradient(to bottom right, #d37ad6, #ff8838)",
               }}
             >
-              <Link to="/Guide Me">
-                <h2>Guide me</h2>
+              <Link to="/Guide">
+                <h2>Guide</h2>
               </Link>
             </motion.div>
           </div>

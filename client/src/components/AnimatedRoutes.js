@@ -6,7 +6,7 @@ import About from "../screens/AboutScreen/About";
 import Plan from "../screens/PlanScreen/Plan";
 import Explore from "../screens/ExploreScreen/Explore";
 import Contact from "../screens/ContactScreen/Contact";
-import GuideMe from "../screens/GuideMeScreen/GuideMe";
+import Guide from "../screens/GuideScreen/Guide";
 import Auth from "../screens/AuthScreen/Auth";
 
 import { AnimatePresence } from "framer-motion";
@@ -22,7 +22,7 @@ const AnimatedRoutes = () => {
         <Route path="/About" element={<About />} />
         <Route path="/Plan" element={<Plan />} />
         <Route path="/Explore" element={<Explore />} />
-        <Route path="/Guide Me" element={<GuideMe />} />
+        <Route path="/Guide" element={<Guide />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Auth" element={<Auth />}/>
       </Routes>

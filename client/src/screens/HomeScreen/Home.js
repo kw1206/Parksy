@@ -86,14 +86,14 @@ const Home = () => {
                   <h2>Explore parks</h2>
                 </motion.div>
               </Link>
-              <Link to="/Guide Me" className="guide-me">
+              <Link to="/Guide" className="guide-me">
                 <motion.div
                   whileHover={{
                     background: "linear-gradient(to right, #a376bb, #d37ad6)",
                   }}
                   className="plan-trip-hover"
                 >
-                  <h2>Guide me</h2>
+                  <h2>Guide</h2>
                 </motion.div>
               </Link>
               <Link to="/Plan" className="plan-your-trip">
