@@ -11,14 +11,18 @@ require("./Auth.css");
 
 const Register = () => {
   const [loading, setLoading] = useState(true);
+
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [pword, setPword] = useState("");
+  const [pw, setPw] = useState("");
   const [emailOrPhone, setEmailOrPhone] = useState("");
-  const [loginOrRegister, setLoginOrRegister] = useState("login");
   const [visible, setVisible] = useState(false);
+
+  const [loginOrRegister, setLoginOrRegister] = useState("login");
+
+  const [loginRegisterMessage, setLoginRegisterMessage] = useState("");
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -37,98 +41,98 @@ const Register = () => {
     return () => window.removeEventListener("load", handlePageLoad);
   }, []);
 
+  const clear = () => {
+    setFname("");
+    setLname("");
+    setEmail("");
+    setPhone("");
+    setPw("");
+    setEmailOrPhone("");
+  };
+
+  const toggleLoginRegister = () => {
+    clear();
+    setLoginRegisterMessage("");
+    if (loginOrRegister === "login") return setLoginOrRegister("register");
+    return setLoginOrRegister("login");
+  };
+
   const togglePasswordVisibility = () => {
     visible ? setVisible(false) : setVisible(true);
   };
-  // const formatPhone = (e) => {
-  //   if (!e.target.value) return e.target.value;
-  //   const phoneNum = e.target.value.replace(/[^\d]/g, "");
-  //   if (phoneNum.length < 4) return setEmailOrPhone(phoneNum);
-  //   if (phoneNum.length < 7) {
-  //     return setEmail(`(${phoneNum.slice(0, 3)}) ${phoneNum.slice(3)}`);
-  //   }
-  //   return setEmailOrPhone(`(${phoneNum.slice(0, 3)}) ${phoneNum.slice(3, 6)}-${phoneNum.slice(
-  //     6,
-  //     10
-  //   )}`);
-  // };
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     const salt = bcrypt.genSaltSync(10);
-    const hashedPword = bcrypt.hashSync(pword, salt);
+    const hashedPw = bcrypt.hashSync(pw, salt);
 
-    const newUserData = [fname, lname, email, phone, hashedPword];
-    console.log(newUserData);
+    const newUserData = [fname, lname, email, phone, hashedPw];
 
-    await axios
-      .post("http://localhost:3001/api/register", newUserData)
-      .then((response) => {
-        console.log(response);
-      });
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3001/api/register",
+        newUserData
+      );
 
-    // can use below if decide to combine register and login forms
-    // window.localStorage.setItem('login', JSON.stringify({email, hashedPword}))
+      if (data.code === "ER_DUP_ENTRY")
+        return setLoginRegisterMessage(
+          "An account with that email or password already exists. Please enter a different email and/or phone to sign up."
+        );
 
-    setFname("");
-    setLname("");
-    setEmail("");
-    setPhone("");
-    setPword("");
+      if (data.code === "ERR_NETWORK")
+        return setLoginRegisterMessage(
+          "A network error occurred while registering your account.  Please try again."
+        );
+
+      return setLoginRegisterMessage(
+        `Account created! Click "Login" above to get started.`
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    // test if the user input credential is an email or phone number
+    let loginMethod;
     const lettersOrPunctuation = /[a-zA-Z!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/;
     if (
       emailOrPhone.includes("@") &&
       emailOrPhone.charAt(emailOrPhone.length - 4) === "."
     ) {
-      console.log("valid email entered");
-      // try {
-      //   await axios.get(`http://localhost:3001/api/${email}`).then((res) => {
-      //     if (res.data.exists()) {
-      //       let hashedPword = res.data[0].columns.password;
-      //       console.log("hashedPword --> ", hashedPword);
-
-      //       if (bcrypt.compareSync(pword, hashedPword)) {
-      //         console.log("login successful");
-      //       } else {
-      //         console.log("login failed");
-      //       }
-      //     } else {
-      //       console.log("user does not exist");
-      //     }
-      //   });
-      // } catch (error) {
-      //   console.log(error);
-      // }
+      loginMethod = "email";
     } else if (
       emailOrPhone.toString().length === 10 &&
       !lettersOrPunctuation.test(emailOrPhone)
     ) {
-      console.log("valid phone number entered");
-      // try {
-      //   await axios.get(`http://localhost:3001/api/${phone}`).then((res) => {
-      //     if (res.data.exists()) {
-      //       let hashedPword = res.data[0].columns.password;
-      //       console.log("hashedPword --> ", hashedPword);
-
-      //       if (bcrypt.compareSync(pword, hashedPword)) {
-      //         console.log("login successful");
-      //       } else {
-      //         console.log("login failed");
-      //       }
-      //     } else {
-      //       console.log("user does not exist");
-      //     }
-      //   });
-      // } catch (error) {
-      //   console.log(error);
-      // }
+      loginMethod = "phone";
     } else {
-      console.log("invalid input");
+      setLoginRegisterMessage("Invalid email or phone");
+      return console.log(loginRegisterMessage);
+    }
+
+    // attempt login
+    try {
+      const { data } = await axios.post("http://localhost:3001/api/login/", {
+        loginMethod: loginMethod,
+        emailOrPhone: emailOrPhone.toString(),
+        pw: pw,
+      });
+
+      // if the returned data contains a property called "errorMessage", set the loginRegisterMessage to the errorMessage
+      if (data.errorMessage) return setLoginRegisterMessage(data.errorMessage);
+
+      // if there is no error, set the token in the local storage
+      window.localStorage.setItem( "token", data.token)
+      return console.log("data --> ", data);
+
+    } catch (error) {
+      // if there is any other kind of error during login
+      setLoginRegisterMessage(`Login attempted failed. Please try again.`);
+      return console.log(error);
     }
   };
 
@@ -168,14 +172,13 @@ const Register = () => {
                 value={emailOrPhone}
                 onChange={(e) => setEmailOrPhone(e.target.value)}
               />
-              {/* <br /> */}
               <div className="password-input">
                 <input
                   type={visible ? "text" : "password"}
                   placeholder="password"
                   required
-                  value={pword}
-                  onChange={(e) => setPword(e.target.value)}
+                  value={pw}
+                  onChange={(e) => setPw(e.target.value)}
                 />
                 <div className="eye" onClick={() => togglePasswordVisibility()}>
                   {visible ? (
@@ -185,7 +188,6 @@ const Register = () => {
                   )}
                 </div>
               </div>
-              {/* <br /> */}
               <button className="login-button" type="submit">
                 Login
               </button>
@@ -194,7 +196,7 @@ const Register = () => {
               <p>Don't have an account?</p>
               <button
                 className="switch-to-register"
-                onClick={() => setLoginOrRegister("register")}
+                onClick={() => toggleLoginRegister()}
               >
                 Register
               </button>
@@ -245,35 +247,36 @@ const Register = () => {
                   required
                   minLength={8}
                   maxLength={20}
-                  value={pword}
-                  onChange={(e) => setPword(e.target.value)}
+                  value={pw}
+                  onChange={(e) => setPw(e.target.value)}
                 />
-                <div className="eye" onClick={() => togglePasswordVisibility()}>{"   "}
-                  {visible ? (
-                    <VisibilityOffIcon  />
-                  ) : (
-                    <VisibilityIcon  />
-                  )}
+                <div className="eye" onClick={() => togglePasswordVisibility()}>
+                  {"   "}
+                  {visible ? <VisibilityOffIcon /> : <VisibilityIcon />}
                 </div>
               </div>
               <p>password must be between 8 and 25 characters long</p>
               <button className="register-button" type="submit">
                 Register
               </button>
-              {/* <br /> */}
-              <button className="clear-form">Clear form</button>
+              <button className="clear-form" onClick={() => clear()}>
+                Clear form
+              </button>
             </form>
             <div className="switch-login-register">
               <p>Already have an account?</p>
               <button
                 className="switch-to-login"
-                onClick={() => setLoginOrRegister("login")}
+                onClick={() => toggleLoginRegister()}
               >
                 Login
               </button>
             </div>
           </motion.div>
         )}
+        <div className="error-message">
+          <h4>{loginRegisterMessage}</h4>
+        </div>
       </div>
     </motion.div>
   );

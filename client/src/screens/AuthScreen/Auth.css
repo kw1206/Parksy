@@ -63,7 +63,7 @@
 
 .password-input input {
   margin: 0;
-  width: 207px
+  width: 210px
 }
 
 .eye {
@@ -71,7 +71,7 @@
     justify-content: center;
     align-items: center;
     justify-self: right;
-    text-align: center;
+    /* text-align: center; */
     width: 40px
 }
 
@@ -87,6 +87,8 @@
   padding: 10px;
   margin: 10px 0px 0px 0px;
   border: 0;
+  width: 200px;
+  align-self: center;
 }
 
 .clear-form {
@@ -107,4 +109,9 @@
   border: 0px;
   font-size: 1em;
   text-decoration: underline;
+}
+
+.error-message {
+  padding-top: 20px;
+  width: 320px
 }
