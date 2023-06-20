@@ -13,6 +13,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import parksy_white from "../assets/logos/parksy_white.png";
+import hex from "../assets/colors";
+
 
 const pages = ["Home", "About", "Explore", "Guide", "Plan"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -41,7 +43,7 @@ function ResponsiveAppBar() {
     <AppBar
       position="fixed"
       style={{
-        backgroundColor: "#065749",
+        backgroundColor: hex.green,
         height: "70px",
         justifyContent: "center",
       }}
@@ -122,7 +124,7 @@ function ResponsiveAppBar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings" >
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={`${loggedInUser.firstName.charAt(0)}`} src="/static/images/avatar/2.jpg" sx={{backgroundColor: "#0298c9"}}/>
+                  <Avatar alt={`${loggedInUser.firstName.charAt(0)}`} src="/static/images/avatar/2.jpg" sx={{backgroundColor: hex.blue}}/>
                 </IconButton>
               </Tooltip>
               <Menu

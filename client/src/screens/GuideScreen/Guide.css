@@ -31,6 +31,18 @@
   width: 100%;
 }
 
+.video-copy {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
 .guide-intro-copy {
   height: 50vh;
   display: flex;
@@ -44,7 +56,93 @@
   margin: 20px;
 }
 
-.q1 {
+.custom-q-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-q {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 70vh;
+  width: 70vh;
+  /* border-radius: 50%; */
+  /* border: 2px solid white; */
+  margin: 10px;
+  padding: 30px;
+  background-color: black;
+  /* padding: 10px; */
+  /* margin: 3% */
+}
+
+.qHeader {
+  /* height: 25%; */
+  /* border: 2px solid red */
+}
+
+.qHeader h1 {
+  font-size: 4em;
+  padding: 10px
+}
+
+.qHeader h2 {
+  font-size: 1.8em;
+  padding: 10px
+}
+
+.date-flexibility-box {
+  border: 2px solid white;
+  padding: 20px;
+  margin: 10px;
+  width: 70%;
+  height: fit-content;
+  /* background-color: black; */
+}
+
+.date-flexibility-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 2px solid red; */
+  /* height: 25%; */
+  width: 100%
+}
+
+.date-flexibility-box h2 {
+  font-size: 20px;
+}
+
+/* .button-div {
+  border: 2px solid red;
+} */
+
+.save-continue {
+  padding: 20px;
+  /* border: 2px solid red; */
+  border-radius: 25px;
+}
+.enter-dates {
+  height: 25%;
+  /* border: 2px solid red */
+}
+select {
+  color: black;
+  font-size: 20px;
+}
+option {
+  color: black;
+}
+
+.keywordOption {
+  color: white;
+}
+
+.q3 {
   height: 75vh;
   width: 75vh;
   border-radius: 50%;
@@ -52,5 +150,31 @@
   z-index: 2;
   top: 150px;
   left: calc((100vw - 75vh)/2);
-  background: #0298c9;
+  background-color: #a376bb;
+}
+
+.q4 {
+  height: 75vh;
+  width: 75vh;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 2;
+  top: 150px;
+  left: calc((100vw - 75vh)/2);
+  background-color: #d37ad6;
+}
+
+.q4 {
+  height: 75vh;
+  width: 75vh;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 2;
+  top: 150px;
+  left: calc((100vw - 75vh)/2);
+  background-color: #ff8838;
+}
+
+button {
+  color: black
 }
