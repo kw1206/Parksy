@@ -4,7 +4,7 @@ import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrow
 import ParkIcon from "@mui/icons-material/Park";
 import mountain1 from "../../../assets/videos/mountain1.mp4";
 import { Link } from "react-router-dom";
-
+import hex from "../../../assets/colors";
 const MountainVideo = () => {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -79,7 +79,7 @@ const MountainVideo = () => {
               className="about-link-button"
               whileHover={{
                 background:
-                  "linear-gradient(to bottom right, #d37ad6, #ff8838)",
+                  `linear-gradient(to bottom right, ${hex.pink}, ${hex.orange})`,
               }}
             >
               <Link to="/Explore">

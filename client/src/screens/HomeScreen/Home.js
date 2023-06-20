@@ -4,6 +4,7 @@ import forest1 from "../../assets/videos/forest1.mp4";
 import parksy_white from "../../assets/logos/parksy_white.png";
 import { Link } from "react-router-dom";
 import LoadingAnimation from "../../components/LoadingAnimation.js";
+import hex from "../../assets/colors";
 require("./Home.css");
 
 const Home = () => {
@@ -78,8 +79,7 @@ const Home = () => {
               <Link to="/Explore" className="explore-parks">
                 <motion.div
                   whileHover={{
-                    background:
-                      "linear-gradient(to top right, #44707f, #0298c9)",
+                    background: `linear-gradient(to top right, ${hex.darkBlue}, ${hex.blue})`,
                   }}
                   className="explore-hover"
                 >
@@ -89,7 +89,7 @@ const Home = () => {
               <Link to="/Guide" className="guide-me">
                 <motion.div
                   whileHover={{
-                    background: "linear-gradient(to right, #a376bb, #d37ad6)",
+                    background: `linear-gradient(to right, ${hex.purple}, ${hex.pink})`,
                   }}
                   className="plan-trip-hover"
                 >
@@ -99,8 +99,7 @@ const Home = () => {
               <Link to="/Plan" className="plan-your-trip">
                 <motion.div
                   whileHover={{
-                    background:
-                      "linear-gradient(to bottom right, #ff8838, #bd523a)",
+                    background: `linear-gradient(to bottom right, ${hex.orange}, ${hex.rust})`,
                   }}
                   className="plan-trip-hover"
                 >

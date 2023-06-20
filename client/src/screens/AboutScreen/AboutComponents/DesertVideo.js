@@ -4,6 +4,7 @@ import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrow
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 import desert1 from "../../../assets/videos/desert1.mp4";
 import { Link } from "react-router-dom";
+import hex from "../../../assets/colors";
 
 const DesertVideo = () => {
   const targetRef = useRef(null);
@@ -80,7 +81,7 @@ const DesertVideo = () => {
               className="about-link-button"
               whileHover={{
                 background:
-                  "linear-gradient(to bottom right, #d37ad6, #ff8838)",
+                  `linear-gradient(to bottom right, ${hex.pink}, ${hex.orange})`,
               }}
             >
               <Link to="/Plan">
