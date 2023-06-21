@@ -48,14 +48,7 @@ const Home = () => {
       <div className="video-container">
         <video className="home-video" src={forest1} autoPlay loop muted />
         <div className="home-video-copy">
-          <div>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 2 }}
-            >
-              welcome to
-            </motion.p>
+          <div className="intro-copy">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -63,13 +56,15 @@ const Home = () => {
             >
               <img src={parksy_white} />
             </motion.div>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6, duration: 2 }}
-            >
-              National Park planning made easy
-            </motion.p>
+            <div className="park-planning-easy">
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6, duration: 2 }}
+              >
+                National Park planning made easy
+              </motion.p>
+            </div>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -93,7 +88,7 @@ const Home = () => {
                   }}
                   className="plan-trip-hover"
                 >
-                  <h2>Guide</h2>
+                  <h2>Get guidance</h2>
                 </motion.div>
               </Link>
               <Link to="/Plan" className="plan-your-trip">
@@ -112,6 +107,7 @@ const Home = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.3, duration: 2 }}
+                style={{textDecoration: "underline"}}
               >
                 how it works
               </motion.p>

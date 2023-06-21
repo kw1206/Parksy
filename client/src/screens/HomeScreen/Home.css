@@ -11,7 +11,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  top: 0;
+  top: 35px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,40 +19,55 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+.intro-copy {
+  padding: 50px;
+  width: 100%;
+}
+
 .home-video-copy h1 {
   font-size: 3em;
 }
 
 .home-video-copy img {
-  width: 55%;
-  /* border: 2px solid red */
+  width: 700px;
+}
+
+.park-planning-easy {
+  margin: auto;
+  padding: 10px 0px;
 }
 
 .home-video-copy p {
-  font-size: 2em;
+  font-size: 1.5em;
+  /* padding: 10px; */
 }
 
 .parksy-options {
   display: flex;
   flex-direction: row;
-  /* border: 2px solid red; */
   justify-content: center;
   align-items: center;
-  padding: 20px
+  padding: 20px;
 }
 
-.plan-your-trip, .guide-me,
+.plan-your-trip,
+.guide-me,
 .explore-parks {
   border: 3px solid white;
-  width: 25%;
+  width: 300px;
   margin: 2%;
   padding: 5% 0;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .plan-your-trip h2,
-.explore-parks h2, .guide-me h2 {
-    font-size: 2.5em;
+.explore-parks h2,
+.guide-me h2 {
+  font-size: 2.5em;
 }
 
 .plan-trip-hover,
@@ -64,4 +79,40 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 850px) {
+  .home-video-copy img {
+    width: 80%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .parksy-options {
+    flex-direction: column;
+    padding: 0;
+  }
+  .plan-your-trip,
+  .guide-me,
+  .explore-parks {
+    width: 75%;
+    padding: 40px
+  }
+  .plan-your-trip h1,
+  .explore-parks h1,
+  .guide-me h1 {
+    font-size: 2em;
+  }
+}
+
+@media (max-width: 570px) {
+  .park-planning-easy {
+    width: 350px;
+  }
+  .home-video-copy p,
+  .plan-your-trip h2,
+  .explore-parks h2,
+  .guide-me h2 {
+    font-size: 1.5em;
+  }
 }

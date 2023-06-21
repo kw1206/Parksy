@@ -15,14 +15,16 @@ import { Link } from "react-router-dom";
 import parksy_white from "../assets/logos/parksy_white.png";
 import hex from "../assets/colors";
 
-
 const pages = ["Home", "About", "Explore", "Guide", "Plan"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [loggedInUser, setLoggedInUser] = useState({firstName: "Kit", lastName: "Wallace"});
+  const [loggedInUser, setLoggedInUser] = useState({
+    firstName: "Kit",
+    lastName: "Wallace",
+  });
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -41,11 +43,11 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar
-      position="fixed"
       style={{
         backgroundColor: hex.green,
         height: "70px",
         justifyContent: "center",
+        position: "fixed",
       }}
     >
       <Container maxWidth="xl">
@@ -122,9 +124,13 @@ function ResponsiveAppBar() {
           </Box>
           {loggedInUser ? (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings" >
+              <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={`${loggedInUser.firstName.charAt(0)}`} src="/static/images/avatar/2.jpg" sx={{backgroundColor: hex.blue}}/>
+                  <Avatar
+                    alt={`${loggedInUser.firstName.charAt(0)}`}
+                    src="/static/images/avatar/2.jpg"
+                    sx={{ backgroundColor: hex.blue }}
+                  />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -145,10 +151,7 @@ function ResponsiveAppBar() {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Link
-                      to={`/${setting}`}
-                      sx={{ color: "black" }}
-                    >
+                    <Link to={`/${setting}`} sx={{ color: "black" }}>
                       {setting}
                     </Link>
                   </MenuItem>
@@ -157,7 +160,9 @@ function ResponsiveAppBar() {
             </Box>
           ) : (
             <Box sx={{ flexGrow: 0 }}>
-              <Link to="/Auth" style={{ textDecoration: "none" }}>LOGIN</Link>
+              <Link to="/Auth" style={{ textDecoration: "none" }}>
+                LOGIN
+              </Link>
             </Box>
           )}
         </Toolbar>
