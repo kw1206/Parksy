@@ -57,35 +57,40 @@ const MountainVideo = () => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ type: "tween", duration: 2 }}
+          className="between-text-content"
         >
-          <ParkIcon fontSize="inherit" />
           <div className="text">
-            <h1>
-              The United States is home
-              <br />
-              to 63 National Parks
-            </h1>
-            <p>
-              With so much to see and do, right now is always the right time to
-              visit the right US National Park for you.
-            </p>
-            <p>
-              Every season offers visitors a different experience. Depending
-              on your travel needs and goals, figuring out when and where
-              to visit can be a challenge.
-            </p>
-            <p>Let us help you get there. Keep scrolling to find out how.</p>
-            <motion.div
-              className="about-link-button"
-              whileHover={{
-                background:
-                  `linear-gradient(to bottom right, ${hex.pink}, ${hex.orange})`,
-              }}
-            >
-              <Link to="/Explore">
+            <ParkIcon
+              sx={{ fontSize: "1em", padding: "40px", margin: "auto" }}
+            />
+            <div className="header">
+              <h1>
+                The United States is home
+                <br /> to 63 National Parks
+              </h1>
+            </div>
+            <div className="body-content">
+              <p>
+                With so much to see and do, right now is always the right time
+                to visit the right US National Park for you.
+              </p>
+              <p>
+                Every season offers visitors a different experience. Depending
+                on your travel needs and goals, figuring out when and where to
+                visit can be a challenge.
+              </p>
+              <p>Let us help you get there. Keep scrolling to find out how.</p>
+            </div>
+            <Link to="/Explore" className="about-link-button">
+              <motion.div
+                className="about-link-hover"
+                whileHover={{
+                  background: `linear-gradient(to top right, ${hex.darkBlue}, ${hex.blue})`,
+                }}
+              >
                 <h2>Explore parks</h2>
-              </Link>
-            </motion.div>
+              </motion.div>
+            </Link>
           </div>
           <div className="scroll-icon-small">
             <KeyboardDoubleArrowDownIcon fontSize="inherit" />

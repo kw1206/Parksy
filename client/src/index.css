@@ -26,21 +26,26 @@ html {
 }
 
 .page-container {
+  top: 70px;
+  /* position: absolute; */
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  /* overflow-x: hidden; */
+  /* overflow-y: hidden; */
 }
 
 .loading-container {
+  top: 70px;
+  position: absolute;
   overflow-x: hidden;
   width: 100%;
-  height: 100vh
+  height: calc(100vh - 70px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .loading-animation {
-  position: absolute;
-  top: calc(50vh - 100px);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -49,7 +54,6 @@ html {
 }
 
 .loading-animation-bg {
-  /* border: 2px solid blue; */
   border-radius: 50%;
   width: 250px;
   height: 250px;
@@ -62,14 +66,23 @@ html {
   width: 60%;
 }
 
-.loading-animation h1 {
-  padding: 20px;
+.video-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 2px solid red */
 }
 
 .footer {
-  /* position: absolute; */
+  /* position: fixed;
   bottom: 0;
-  /* left: 0; */
+  left: 0; */
+  margin-top: auto;
   width: 100%;
   padding: 20;
   background-color: #052922;
@@ -95,4 +108,8 @@ html {
 
 .link-to-contact > * {
   margin: 5px
+}
+
+a {
+  text-decoration: none;
 }
