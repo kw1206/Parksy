@@ -5,6 +5,7 @@ import ParkIcon from "@mui/icons-material/Park";
 import mountain1 from "../../../assets/videos/mountain1.mp4";
 import { Link } from "react-router-dom";
 import hex from "../../../assets/colors";
+
 const MountainVideo = () => {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({

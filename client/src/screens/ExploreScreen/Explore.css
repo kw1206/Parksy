@@ -82,7 +82,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  border: 2px solid red;
+  /* border: 2px solid red; */
   width: 90%;
   margin: auto;
   margin-top: 20px;

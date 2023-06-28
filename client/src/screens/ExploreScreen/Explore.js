@@ -13,8 +13,10 @@ require("./Explore.css");
 const Explore = () => {
   const [loading, setLoading] = useState(true);
   const [parks, setParks] = useState([]);
-  const [filteredParks, setFilteredParks] = useState([])
-  const [autoResults, setAutoResults] = useState([]);
+  const [filteredParks, setFilteredParks] = useState([]);
+  const [autoResultsParks, setAutoResultsParks] = useState([]);
+  const [autoResultsKeywords, setAutoResultsKeywords] = useState([]);
+  const [filteredKeywords, setFilteredKeywords] = useState([]);
 
   // handle loading
   useEffect(() => {
@@ -40,14 +42,30 @@ const Explore = () => {
       try {
         const res = await axios.get("http://localhost:3001/api/parks");
         setParks(res.data);
-        setFilteredParks(res.data)
-        setAutoResults(res.data.map((park) => park.park_name).sort());
+        setFilteredParks(res.data);
+        setAutoResultsParks(res.data.map((park) => park.park_name).sort());
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchAllParks();
+  }, []);
+
+  // fetch keywords data
+  useEffect(() => {
+    const fetchKeywords = async () => {
+      try {
+        const res = await axios.get("http://localhost:3001/api/keywords");
+        setParks(res.data);
+        setFilteredKeywords(res.data);
+        setAutoResultsKeywords(res.data.map((keyword) => keyword.activity).sort());
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchKeywords();
   }, []);
 
   const filterParks = (e) => {
@@ -108,7 +126,7 @@ const Explore = () => {
                   color: "black", // Set text color of the options in the popout window
                 },
               }}
-              options={autoResults}
+              options={autoResultsParks}
               renderInput={(params) => (
                 <TextField
                   sx={{
@@ -139,7 +157,7 @@ const Explore = () => {
                   color: "black", // Set text color of the options in the popout window
                 },
               }}
-              options={autoResults}
+              options={autoResultsParks}
               renderInput={(params) => (
                 <TextField
                   sx={{
