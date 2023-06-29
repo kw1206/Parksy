@@ -23,6 +23,9 @@
 html {
   background-color: black;
   display: block;
+  width: 100%;
+  min-width: 360px;
+  margin: auto
 }
 
 .page-container {

@@ -19,12 +19,14 @@
 }
 
 .explore-intro-copy {
+  width: 100%;
   height: 50vh;
   display: flex;
   flex-direction: column;
   text-align: center;
   justify-content: center;
   align-items: center;
+  /* border: 2px solid red; */
 }
 
 .explore-intro-copy > * {
@@ -32,21 +34,24 @@
 }
 
 .explore-bar {
-  border-radius: 25px;
-  padding: 25px;
-  width: 90%;
+  /* border-radius: 25px; */
+  /* padding: 25px; */
+  width: 100%;
+  /* width: 360px; */
+  /* min-width: 360px; */
   margin: auto;
-  height:fit-content;
+  height: fit-content;
   display: flex;
   flex-direction: row;
   background-image: linear-gradient(to bottom right, #d37ad6, #ff8838);
 }
 
 .search-box {
-  /* padding: 20px; */
-  width: fit-content;
+  padding: 10px;
+  width: 30%;
   text-align: left;
   align-items: center;
+  /* border: 2px solid red */
 }
 
 .search-box > * {
@@ -73,7 +78,7 @@
   justify-content: center;
   align-items: center;
   /* border: 2px solid red; */
-  background-color: #FF8838;
+  background-color: #ff8838;
 }
 
 .park-card-container {
@@ -82,21 +87,24 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  /* border: 2px solid red; */
-  width: 90%;
+  /* border: 2px solid blue; */
+  /* width: 90%; */
   margin: auto;
   margin-top: 20px;
+  /* overflow-y: scroll; */
+  /* height: calc(100vh - 150px) */
 }
 
 .park-card {
-  width: 400px;
+  width: 300px;
+  /* min-width: fit-content; */
   height: 300px;
   margin: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
-  /* border: 1px solid black */
+  align-items: center;
+  /* border: 2px solid green */
 }
 
 .park-card img {
@@ -108,8 +116,36 @@
 .park-card-info {
   position: absolute;
   margin: auto;
-  width: inherit;
-  padding: 15px 0;
-  /* padding: 20px; */
+  min-width: fit-content;
+  max-width: 300px;
+  /* min-width: 340px; */
+  /* padding: 15px 0px; */
+  padding: 1%;
   background-color: rgba(0, 0, 0, 0.6);
+  /* border: 2px solid red; */
+}
+
+.park-card-info h2 {
+  font-size: 1.2em;
+}
+
+.park-card-info h3 {
+  font-size: 1em;
+}
+
+@media (max-width: 854px) {
+  .park-card {
+    width: 100%;
+    height: 150px
+  }
+}
+
+
+@media (max-width: 500px) {
+  .explore-bar {
+    flex-direction: column;
+  }
+  .search-box {
+    width: 80%
+  }
 }

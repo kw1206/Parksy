@@ -67,7 +67,7 @@ app.post("/api/parks", (req, res) => {
   });
 });
 
-app.get("/api/keywords", (req, res) => {
+app.get("/api/activities", (req, res) => {
   const getAllActivities = "SELECT * FROM activities";
   console.log("running -->", getAllActivities);
   db.query(getAllActivities, (error, data) => {
