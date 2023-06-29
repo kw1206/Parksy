@@ -56,7 +56,7 @@
   border: 3px solid white;
   width: 300px;
   margin: 2%;
-  padding: 5% 0;
+  padding: 5%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -96,7 +96,7 @@
   .guide-me,
   .explore-parks {
     width: 75%;
-    padding: 40px
+    /* padding: 30px */
   }
   .plan-your-trip h1,
   .explore-parks h1,

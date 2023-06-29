@@ -20,11 +20,13 @@
 }
 
 .video-copy p {
-  font-size: 8em;
+  font-size: 15vw;
+  padding: 50px;
+  /* border: 2px solid red; */
 }
 
 .scroll-icon {
-  font-size: 5em;
+  font-size: 100px;
   position: absolute;
   bottom: 0;
 }
@@ -136,4 +138,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+
+@media (min-width: 950px) {
+  .video-copy p {
+    font-size: 143px;
+    /* border: 2px solid red; */
+  }
 }

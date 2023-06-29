@@ -67,6 +67,19 @@ app.post("/api/parks", (req, res) => {
   });
 });
 
+app.get("/api/activities", (req, res) => {
+  const getAllActivities = "SELECT * FROM activities";
+  console.log("running -->", getAllActivities);
+  db.query(getAllActivities, (error, data) => {
+    if (error) {
+      console.log(error);
+      return res.json(error);
+    }
+    console.log(data);
+    return res.json(data);
+  });
+});
+
 //////////////////////////////
 // USER ROUTES
 //////////////////////////////

@@ -8,13 +8,23 @@ import Autocomplete from "@mui/material/Autocomplete";
 import SearchIcon from "@mui/icons-material/Search";
 import ParkCard from "./ExploreComponents/ParkCard";
 import LoadingAnimation from "../../components/LoadingAnimation";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import Checkbox from "@mui/material/Checkbox";
+import Paper from "@mui/material/Paper";
 require("./Explore.css");
+
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" sx={{ color: 'black' }} />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const Explore = () => {
   const [loading, setLoading] = useState(true);
   const [parks, setParks] = useState([]);
-  const [filteredParks, setFilteredParks] = useState([])
-  const [autoResults, setAutoResults] = useState([]);
+  const [filteredParks, setFilteredParks] = useState([]);
+  const [autoResultsParks, setAutoResultsParks] = useState([]);
+  const [activities, setActivities] = useState([]);
+  const [filteredActivities, setFilteredActivities] = useState([]);
+  const [autoResultsActivities, setAutoResultsActivities] = useState([]);
 
   // handle loading
   useEffect(() => {
@@ -40,14 +50,32 @@ const Explore = () => {
       try {
         const res = await axios.get("http://localhost:3001/api/parks");
         setParks(res.data);
-        setFilteredParks(res.data)
-        setAutoResults(res.data.map((park) => park.park_name).sort());
+        setFilteredParks(res.data);
+        setAutoResultsParks(res.data.map((park) => park.park_name).sort());
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchAllParks();
+  }, []);
+
+  // fetch activity data
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        const res = await axios.get("http://localhost:3001/api/activities");
+        setActivities(res.data);
+        setFilteredActivities(res.data);
+        setAutoResultsActivities(
+          res.data.map((activities) => activities.activity).sort()
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchActivities();
   }, []);
 
   const filterParks = (e) => {
@@ -57,6 +85,11 @@ const Explore = () => {
     );
     setFilteredParks(filteredSearch);
   };
+
+  // const handleAddKeyword = (event, value) => {
+  //   props.setKeywords([...props.keywords, value]);
+  //   console.log("keywords --> ", props.keywords);
+  // };
 
   return loading ? (
     <motion.div
@@ -99,55 +132,64 @@ const Explore = () => {
           <div className="search-field">
             <Autocomplete
               className="autocomplete-field"
-              sx={{
-                width: 280,
-                "& .MuiAutocomplete-listbox": {
-                  color: "black", // Set text color of the options
-                },
-                "& .MuiAutocomplete-option": {
-                  color: "black", // Set text color of the options in the popout window
-                },
-              }}
-              options={autoResults}
+              // sx={{ width: '225px' }}
+              options={autoResultsParks}
               renderInput={(params) => (
                 <TextField
                   sx={{
-                    color: "white", // Set text color of the text box
+                    color: "black", // Set text color of the text box
                     backgroundColor: "white", // Set background color of the text box
+                    borderRadius: "5px",
                   }}
                   {...params}
                   onChange={(e) => filterParks(e)}
                 />
               )}
             />
-            <div className="search-button">
+            {/* <div className="search-button">
               <SearchIcon />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="search-box">
-          <p>Search by activity or park feature</p>
+          <p>Filter by activity</p>
           <div className="search-field">
             <Autocomplete
-              className="autocomplete-field"
-              sx={{
-                width: 280,
-                "& .MuiAutocomplete-listbox": {
-                  color: "black", // Set text color of the options
-                },
-                "& .MuiAutocomplete-option": {
-                  color: "black", // Set text color of the options in the popout window
-                },
-              }}
-              options={autoResults}
+              multiple
+              id="checkboxes-tags-demo"
+              // onChange={(event, value) => handleAddKeyword(event, value)}
+              options={autoResultsActivities}
+              disableCloseOnSelect
+              limitTags={10}
+              getOptionLabel={(option) => option.activity}
+              renderOption={(props, option, { selected }) => (
+                <li
+                  {...props}
+                  className="keywordOption"
+                  style={{
+                    color: selected ? "white" : "black",
+                    backgroundColor: selected ? "#065749" : "white",
+                  }}
+                >
+                  <Checkbox
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{
+                      marginRight: 8,
+                      borderWidth: "2px",
+                      borderColor: "black",
+                    }}
+                    checked={selected}
+                  />
+                  {option.activity}
+                </li>
+              )}
+              sx={{ backgroundColor: "white", color: "black", borderRadius: "5px" }}
               renderInput={(params) => (
                 <TextField
-                  sx={{
-                    color: "white", // Set text color of the text box
-                    backgroundColor: "white", // Set background color of the text box
-                  }}
                   {...params}
-                  onChange={(e) => filterParks(e)}
+                  placeholder="Activities"
+                  sx={{ color: "black" }}
                 />
               )}
             />
