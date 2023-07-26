@@ -16,3 +16,12 @@
     margin: 20px;
     padding: 20px
 }
+
+.contact-icons {
+    display: flex;
+    flex-direction: row;
+}
+
+.contact-icons > * {
+    padding-right: 7px;
+}

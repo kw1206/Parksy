@@ -3,40 +3,24 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
+  height: 100vh;
   width: 100%;
-}
-
-.video-copy {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .video-copy p {
   font-size: 15vw;
   padding: 50px;
-  /* border: 2px solid red; */
 }
 
-.scroll-icon {
-  font-size: 100px;
-  position: absolute;
-  bottom: 0;
+.large-scroll-bounce {
+  font-size: calc(15vw * .75);
 }
 
 .between-text {
   width: 100%;
-  height: 200vh;
+  height: 100vh;
   position: relative;
   overflow: hidden;
-  /* text-align: center; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,7 +33,6 @@
   height: 100vh;
   position: relative;
   overflow: hidden;
-  /* text-align: center; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,21 +41,23 @@
 }
 
 .between-text-content  {
-  /* border: 2px solid blue; */
-  /* padding-top: 20; */
-  min-height: calc(100vh - 70px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.small-scroll-bounce {
+  margin-top: 40px;
+  font-size: 4vw;
+}
+
 .between-text h1, .between-text-final h1 {
-  font-size: 40px;
+  font-size: 3.5vw;
 }
 
 .between-text p, .between-text-final p {
-  font-size: 20px;
+  font-size: 1.5vw;
   margin: 20px;
 }
 
@@ -82,20 +67,13 @@
 
 .text {
   margin: auto;
-  /* padding: 20px; */
   width: 75%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 2px solid red; */
-}
-
-.header {
-  /* border: 2px solid green; */
 }
 
 .body-content {
-  /* border: 2px solid blue; */
   padding: 20px 0px;
 }
 
@@ -118,6 +96,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-decoration: none;
 }
 
 .about-link-hover {
@@ -144,6 +123,18 @@
 @media (min-width: 950px) {
   .video-copy p {
     font-size: 143px;
-    /* border: 2px solid red; */
+  }
+  .large-scroll-bounce {
+    font-size: calc(143px * .75)
+  }
+}
+
+@media (max-width: 950px) {
+  .between-text h1, .between-text-final h1 {
+    font-size: 33px;
+  }
+  .between-text p, .between-text-final p {
+    font-size: 14px;
+    margin: 20px;
   }
 }

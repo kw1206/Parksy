@@ -48,7 +48,8 @@ function ResponsiveAppBar() {
         height: "70px",
         justifyContent: "center",
         position: "fixed",
-        minWidth: "360px"
+        minWidth: "360px",
+        marginBottom: "70px"
       }}
     >
       <Container maxWidth="xl">
