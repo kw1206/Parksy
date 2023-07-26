@@ -24,20 +24,9 @@ const Home = () => {
   return (
     <>
       <AnimatePresence>
-        {onScreenComponent[0] === "loading" && (
-          <motion.div
-            className="loading-container"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <LoadingAnimation />
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {onScreenComponent[0] === "default" && (
+        {onScreenComponent[0] === "loading" ? (
+          <LoadingAnimation />
+        ) : (
           <motion.div
             className="page-container"
             initial={{ opacity: 0 }}
@@ -108,6 +97,7 @@ const Home = () => {
                       animate={{ opacity: 1 }}
                       transition={{ delay: 1.3, duration: 2 }}
                       style={{ textDecoration: "underline" }}
+                      id="how-it-works"
                     >
                       how it works
                     </motion.p>
