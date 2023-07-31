@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import desert1 from "../../../assets/videos/desert1.mp4";
-import LargeScrollBounce from "./LargeScrollBounce";
+import LargeScrollBounce from "../../../components/LargeScrollBounce";
 
 const C_ADVENTURE = () => {
 

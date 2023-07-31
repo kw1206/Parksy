@@ -117,7 +117,7 @@ const Explore = () => {
             <KeyboardDoubleArrowDownIcon sx={{ fontSize: "3rem" }} />
           </motion.div>
 
-          <div className="explore-bar">
+          {/* <div className="explore-bar">
             <div className="search-box">
               <p>Search by park name</p>
               <div className="search-field">
@@ -137,9 +137,6 @@ const Explore = () => {
                     />
                   )}
                 />
-                {/* <div className="search-button">
-              <SearchIcon />
-            </div> */}
               </div>
             </div>
             <div className="search-box">
@@ -193,11 +190,11 @@ const Explore = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="park-card-container">
             {filteredParks.map((park) => (
-              <ParkCard park={park} key={park.id} />
+              <ParkCard park={park} key={park.park_id} />
             ))}
           </div>
         </motion.div>

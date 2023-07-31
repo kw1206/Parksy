@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion, useScroll, useTransform } from "framer-motion";
-import SmallScrollBounce from "./SmallScrollBounce";
+import SmallScrollBounce from "../../../components/SmallScrollBounce";
 import { Link } from "react-router-dom";
 import hex from "../../../assets/colors";
 import ParkIcon from "@mui/icons-material/Park";

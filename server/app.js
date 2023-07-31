@@ -33,7 +33,38 @@ app.get("/api/parks/:id", (req, res) => {
       console.log(error);
       return res.json(error);
     }
+    // console.log(data);
+    return res.json(data);
+  });
+});
+
+app.get("/api/parks/:id/activities", (req, res) => {
+  const id = req.params.id;
+  const getParkActivities = `SELECT a.*
+  FROM activities a
+  INNER JOIN parks_activities pa ON a.activity_id = pa.activity_id
+  WHERE pa.park_id = ${id}`;
+  console.log("running -->", getParkActivities);
+  db.query(getParkActivities, (error, data) => {
+    if (error) {
+      console.log(error);
+      return res.json(error);
+    }
     console.log(data);
+    return res.json(data);
+  });
+});
+
+app.get("/api/activities/:id", (req, res) => {
+  const id = req.params.id;
+  const getActivities = `SELECT * FROM activities WHERE activity_id = ${id}`;
+  console.log("running -->", getActivities);
+  db.query(getActivities, (error, data) => {
+    if (error) {
+      console.log(error);
+      return res.json(error);
+    }
+    // console.log(data);
     return res.json(data);
   });
 });
@@ -85,27 +116,23 @@ app.get("/api/activities", (req, res) => {
 //////////////////////////////
 
 const verifyJWT = (req, res, next) => {
-  const token = req.headers['x-acces-token']
+  const token = req.headers["x-acces-token"];
 
   if (!token) {
-    res.json("there is no token; need token to proceed")
+    res.json("there is no token; need token to proceed");
   } else {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, decoded) => {
       if (error) {
-        res.json({authorized: false, message: "authorization failed"})
+        res.json({ authorized: false, message: "authorization failed" });
       } else {
-        req.user_id = decoded.id
-        next()
+        req.user_id = decoded.id;
+        next();
       }
-    })
+    });
   }
+};
 
-}
-
-app.get("/api/authenticate", (req, res) => {
-  
-})
-
+app.get("/api/authenticate", (req, res) => {});
 
 app.post("/api/login/", (req, res) => {
   // req.body data

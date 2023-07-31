@@ -4,7 +4,7 @@ import hiker1 from "../../../assets/videos/hiker1.mp4";
 import PlayCircleFilledIcon from "@mui/icons-material/PlayCircleFilled";
 import HikingIcon from "@mui/icons-material/Hiking";
 import { Link } from "react-router-dom";
-import LargeScrollBounce from "./LargeScrollBounce";
+import LargeScrollBounce from "../../../components/LargeScrollBounce";
 
 const D_GET_GOING = () => {
 
