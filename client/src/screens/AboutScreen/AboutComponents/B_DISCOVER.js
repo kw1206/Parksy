@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ocean1 from "../../../assets/videos/ocean1.mp4";
-import LargeScrollBounce from "./LargeScrollBounce";
+import LargeScrollBounce from "../../../components/LargeScrollBounce";
 
 const B_DISCOVER = () => {
 

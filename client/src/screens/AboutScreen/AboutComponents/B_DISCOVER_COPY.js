@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import MapIcon from "@mui/icons-material/Map";
 import { Link } from "react-router-dom";
 import hex from "../../../assets/colors";
-import SmallScrollBounce from "./SmallScrollBounce";
+import SmallScrollBounce from "../../../components/SmallScrollBounce";
 
 const B_DISCOVER_COPY = () => {
   

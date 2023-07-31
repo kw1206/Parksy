@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import mountain1 from "../../../assets/videos/mountain1.mp4";
-import LargeScrollBounce from "./LargeScrollBounce";
+import LargeScrollBounce from "../../../components/LargeScrollBounce";
 
 const A_LETS_GO_INTRO = () => {
 
