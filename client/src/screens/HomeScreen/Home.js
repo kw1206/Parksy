@@ -9,7 +9,7 @@ import forest1 from "../../assets/videos/forest1.mp4";
 import parksy_white from "../../assets/logos/parksy_white.png";
 import { Link } from "react-router-dom";
 import LoadingAnimation from "../../components/LoadingAnimation.js";
-import hex from "../../assets/colors";
+import { hex } from "../../assets/colors";
 require("./Home.css");
 
 const Home = () => {

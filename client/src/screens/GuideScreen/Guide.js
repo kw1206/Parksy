@@ -10,7 +10,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Q1Dates from "./GuideComponents/Q1Dates";
 import Q2Keywords from "./GuideComponents/Q2Keywords";
 import Q3Activity from "./GuideComponents/Q3Activity";
-import hex from "../../assets/colors";
+import { hex } from "../../assets/colors";
 require("./Guide.css");
 
 const Guide = () => {

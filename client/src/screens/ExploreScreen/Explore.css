@@ -131,12 +131,14 @@
 
 .park-card-info {
   position: absolute;
+  /* bottom: 0; */
   margin: auto;
+  width: 100%;
   min-width: fit-content;
   max-width: 300px;
   /* min-width: 340px; */
   /* padding: 15px 0px; */
-  padding: 1%;
+  padding: 5px;
   background-color: rgba(0, 0, 0, 0.6);
   /* border: 2px solid red; */
 }

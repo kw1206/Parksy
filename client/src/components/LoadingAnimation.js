@@ -1,7 +1,7 @@
 import React from "react";
 import mountain_white from "../assets/logos/mountain_white.png";
 import { motion } from "framer-motion";
-import hex from "../assets/colors";
+import { hex } from "../assets/colors";
 require("./loading.css");
 
 const LoadingAnimation = () => {

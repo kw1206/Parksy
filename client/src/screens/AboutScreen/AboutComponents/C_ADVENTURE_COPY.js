@@ -1,7 +1,7 @@
 import React from "react";
 import SmallScrollBounce from "../../../components/SmallScrollBounce";
 import { Link } from "react-router-dom";
-import hex from "../../../assets/colors";
+import { hex } from "../../../assets/colors";
 import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 import { motion, useScroll, useTransform } from "framer-motion";
 

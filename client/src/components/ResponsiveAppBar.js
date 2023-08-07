@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import parksy_white from "../assets/logos/parksy_white.png";
 import { motion, AnimatePresence } from "framer-motion";
 // import HideOn
-import hex from "../assets/colors";
+import { hex } from "../assets/colors";
 
 const pages = ["Home", "About", "Explore", "Guide", "Plan"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -122,23 +122,16 @@ function ResponsiveAppBar() {
               </Menu>
             </Box>
             <Link
-                        style={{ textDecoration: "none", color: "black" }}
-                        to={`/Home`}
-                      >
-            <motion.img
-              id="parksy-appbar-icon"
-              alt="parksy-logo"
-              src={parksy_white}
-              style={{ width: "150px", padding: "15px", left: 0 }}
-              initial={false}
-              animate={
-                scroll
-                ? { backgroundColor: hex.green }
-                : { backgroundColor: "transparent" }
-              }
-              transition={{ duration: 1 }}
+              style={{ textDecoration: "none", color: "black" }}
+              to={`/Home`}
+            >
+              <motion.img
+                id="parksy-appbar-icon"
+                alt="parksy-logo"
+                src={parksy_white}
+                style={{ width: "150px", padding: "15px", left: 0, backgroundColor: hex.green }}
               />
-              </Link>
+            </Link>
             <Typography
               variant="h5"
               noWrap
@@ -178,9 +171,11 @@ function ResponsiveAppBar() {
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <motion.div
-                     initial={false}
-                     animate={scroll && !hover ? { opacity: 0 } : {opacity: 1}}
-                     >
+                      initial={false}
+                      animate={
+                        scroll && !hover ? { opacity: 0 } : { opacity: 1 }
+                      }
+                    >
                       <Avatar
                         id="avatar"
                         alt={`${loggedInUser.firstName.charAt(0)}`}
