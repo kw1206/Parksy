@@ -1,46 +1,83 @@
-// import express from "express";
-// const router = express.Router();
+import db from "../config/db.js";
+import express from "express";
+const router = express.Router();
 
-// router.get("/api/parks", (req, res) => {
-//   const getAllParks = "SELECT * FROM parks";
-//   console.log("running -->", getAllParks);
-//   db.query(getAllParks, (error, data) => {
-//     if (error) {
-//       console.log(error);
-//       return res.json(error);
-//     }
-//     console.log(data);
-//     return res.json(data);
-//   });
-// });
+// PARK ROUTES
 
-// router.post("/api/parks", (req, res) => {
-//   const dataToInsert = req.body;
-//   dataToInsert.forEach((element) => {
-//     const insertPark =
-//       "INSERT INTO parks (park_name, photo, est, state, latitude, longitude, area_sqmi, rec_stay) VALUES (?)";
-//     const values = [
-//       element.park_name,
-//       element.photo,
-//       element.est,
-//       element.state,
-//       element.latitude,
-//       element.longitude,
-//       element.area_sqmi,
-//       element.rec_stay,
-//     ];
+// GET ALL PARKS
+router.get("/", (req, res) => {
+  const getAllParks = "SELECT * FROM parks";
+  console.log("running -->", getAllParks);
+  db.query(getAllParks, (error, data) => {
+    if (error) {
+      console.log(error);
+      return res.json(error);
+    }
+    console.log(data);
+    return res.json(data);
+  });
+});
 
-//     db.query(insertPark, [values], (error, data) => {
-//       console.log("inserting --> ", element);
-//       console.log(values);
-//       if (error) {
-//         console.log(error);
-//         return res.json(error);
-//       }
-//       console.log(data);
-//       return res.json("park added to the database!");
-//     });
-//   });
-// });
+// GET PARK BY ID
+router.get("/:id", (req, res) => {
+  const id = req.params.id;
+  const getPark = `SELECT * FROM parks WHERE park_id = ${id}`;
+  console.log("running -->", getPark);
+  db.query(getPark, (error, data) => {
+    if (error) {
+      console.log(error);
+      return res.json(error);
+    }
+    return res.json(data);
+  });
+});
 
-// module.exports = router;
+// GET ACTIVITIES FOR PARK ID
+router.get("/:id/activities", (req, res) => {
+  const id = req.params.id;
+  const getParkActivities = `SELECT a.*
+    FROM activities a
+    INNER JOIN parks_activities pa ON a.activity_id = pa.activity_id
+    WHERE pa.park_id = ${id}`;
+  console.log("running -->", getParkActivities);
+  db.query(getParkActivities, (error, data) => {
+    if (error) {
+      console.log(error);
+      return res.json(error);
+    }
+    console.log(data);
+    return res.json(data);
+  });
+});
+
+// ADD PARK
+router.post("/api/parks", (req, res) => {
+  const dataToInsert = req.body;
+  dataToInsert.forEach((element) => {
+    const insertPark =
+      "INSERT INTO parks (park_name, photo, est, state, latitude, longitude, area_sqmi, rec_stay) VALUES (?)";
+    const values = [
+      element.park_name,
+      element.photo,
+      element.est,
+      element.state,
+      element.latitude,
+      element.longitude,
+      element.area_sqmi,
+      element.rec_stay,
+    ];
+
+    db.query(insertPark, [values], (error, data) => {
+      console.log("inserting --> ", element);
+      console.log(values);
+      if (error) {
+        console.log(error);
+        return res.json(error);
+      }
+      console.log(data);
+      return res.json("park added to the database!");
+    });
+  });
+});
+
+export default router;

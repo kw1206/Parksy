@@ -1,13 +1,17 @@
-// import express from "express"
-// const router = express.Router();
+import express from "express";
+import parksRoutes from "./parksRoutes.js";
+import activitiesRoutes from "./activitiesRoutes.js";
+import usersRoutes from "./usersRoutes.js";
+const router = express.Router();
 
-// router.use("/parks", require("./parksRoutes"));
-// router.use("/users", require("./usersRoutes"));
+router.use("/parks", parksRoutes);
+router.use("/activities", activitiesRoutes);
+router.use("/users", usersRoutes);
 
-// router.use((req, res, next) => {
-//   const err = new Error("API route not found!");
-//   err.status = 404;
-//   next(err);
-// });
+router.use((req, res, next) => {
+  const err = new Error("API route not found!");
+  err.status = 404;
+  next(err);
+});
 
-// module.exports = router;
+export default router;
