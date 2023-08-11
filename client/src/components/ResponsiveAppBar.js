@@ -11,24 +11,24 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Link } from "react-router-dom";
 import parksy_white from "../assets/logos/parksy_white.png";
-import { motion, AnimatePresence } from "framer-motion";
-// import HideOn
+import { motion } from "framer-motion";
 import { hex } from "../assets/colors";
+import { NavLink } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "./LoginButton";
+import LogoutButton from "./LogoutButton";
+import axios from "axios";
 
 const pages = ["Home", "About", "Explore", "Guide", "Plan"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [loggedInUser, setLoggedInUser] = useState({
-    firstName: "kit",
-    lastName: "",
-  });
   const [scroll, setScroll] = useState(false);
   const [hover, setHover] = useState(false);
+  const [initials, setInitials] = useState([]);
+  const { isAuthenticated, user, isLoading } = useAuth0();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,6 +44,23 @@ function ResponsiveAppBar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    const handleLogin = async () => {
+      // attempt login
+      try {
+        const { data } = await axios.post(
+          "http://localhost:3001/api/login/",
+          user.email
+        );
+        return console.log("data --> ", data);
+      } catch (error) {
+        // if there is any other kind of error during login
+        return console.log(error);
+      }
+    };
+    handleLogin();
+  }, [user]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -61,7 +78,6 @@ function ResponsiveAppBar() {
   };
 
   return (
-    // <HideOnScroll threshold={400}>
     <motion.div
       onHoverStart={() => {
         setHover(true);
@@ -110,29 +126,32 @@ function ResponsiveAppBar() {
                     onClick={handleCloseNavMenu}
                   >
                     <Typography>
-                      <Link
+                      <NavLink
                         style={{ textDecoration: "none", color: "black" }}
                         to={`/${page}`}
                       >
                         {page}
-                      </Link>
+                      </NavLink>
                     </Typography>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
+            <NavLink
+              // style={{ textDecoration: "none", color: "black" }}
               to={`/Home`}
             >
               <motion.img
                 id="parksy-appbar-icon"
                 alt="parksy-logo"
                 src={parksy_white}
-                style={{ width: "150px", padding: "15px", left: 0, backgroundColor: hex.green }}
+                style={{
+                  width: "150px",
+                  padding: "15px",
+                }}
               />
-            </Link>
-            <Typography
+            </NavLink>
+            {/* <Typography
               variant="h5"
               noWrap
               component="a"
@@ -147,38 +166,28 @@ function ResponsiveAppBar() {
                 color: "inherit",
                 textDecoration: "none",
               }}
-            ></Typography>
+            ></Typography> */}
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
-                <motion.div
-                  initial={false}
-                  animate={scroll && !hover ? { opacity: 0 } : { opacity: 1 }}
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  <Button
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
-                  >
-                    <Link style={{ textDecoration: "none" }} to={`/${page}`}>
-                      {page}
-                    </Link>
-                  </Button>
-                </motion.div>
+                  <NavLink style={{ textDecoration: "none" }} to={`/${page}`}>
+                    {page}
+                  </NavLink>
+                </Button>
               ))}
             </Box>
-            {loggedInUser ? (
+            {!isLoading && user && (
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <motion.div
-                      initial={false}
-                      animate={
-                        scroll && !hover ? { opacity: 0 } : { opacity: 1 }
-                      }
-                    >
+                    <motion.div>
                       <Avatar
                         id="avatar"
-                        alt={`${loggedInUser.firstName.charAt(0)}`}
+                        alt=":)"
                         src="/static/images/avatar/2.jpg"
                       />
                     </motion.div>
@@ -200,27 +209,26 @@ function ResponsiveAppBar() {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Link to={`/${setting}`} sx={{ color: "black" }}>
-                        {setting}
-                      </Link>
-                    </MenuItem>
-                  ))}
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <NavLink to="/my-profile" className="account-links">
+                      My Profile
+                    </NavLink>
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <LogoutButton />
+                  </MenuItem>
                 </Menu>
               </Box>
-            ) : (
+            )}
+            {!isLoading && !user && (
               <Box sx={{ flexGrow: 0 }}>
-                <Link to="/Auth" style={{ textDecoration: "none" }}>
-                  LOGIN
-                </Link>
+                <LoginButton />
               </Box>
             )}
           </Toolbar>
         </Container>
       </AppBar>
     </motion.div>
-    // </HideOnScroll>
   );
 }
 export default ResponsiveAppBar;

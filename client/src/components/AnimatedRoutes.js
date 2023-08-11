@@ -12,6 +12,7 @@ import Auth from "../screens/AuthScreen/Auth";
 import { AnimatePresence } from "framer-motion";
 import UnderConstruction from "../screens/UnderConstruction";
 import ParkScreen from "../screens/ParkScreen/ParkScreen";
+import Profile from "../screens/ProfileScreen/Profile";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -26,9 +27,10 @@ const AnimatedRoutes = () => {
         <Route path="/Explore" element={<Explore />} />
         <Route path="/Guide" element={<UnderConstruction />} />
         <Route path="/Contact" element={<Contact />} />
-        <Route path="/Auth" element={<UnderConstruction />}/>
-        <Route path="/map" element={<UnderConstruction />}/>
-        <Route path="/parks/:id" element={<ParkScreen />}/>
+        {/* <Route path="/Auth" element={<UnderConstruction />}/> */}
+        <Route path="/map" element={<UnderConstruction />} />
+        <Route path="/parks/:id" element={<ParkScreen />} />
+        <Route path="/my-profile" element={<Profile />} />
       </Routes>
     </AnimatePresence>
   );

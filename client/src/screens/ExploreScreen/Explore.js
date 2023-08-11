@@ -43,7 +43,7 @@ const Explore = () => {
         const res = await axios.get("http://localhost:3001/api/parks");
         setParks(res.data);
         setFilteredParks(res.data);
-        setAutoResultsParks(res.data.map((park) => park.park_name).sort());
+        // setAutoResultsParks(res.data.map((park) => park.park_name).sort());
       } catch (error) {
         console.log(error);
       }

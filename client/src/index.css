@@ -25,11 +25,21 @@ html {
   display: block;
   width: 100%;
   min-width: 360px;
-  margin: auto
+  margin: auto;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the app takes at least the full viewport height */
+}
+
+.AppContent {
+  flex: 1; /* Grow to fill the remaining space */
 }
 
 #app-bar {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: #052922;
   box-shadow: none;
   height: 70px;
   justify-content: "center";
@@ -53,8 +63,9 @@ html {
   background-color: #0298c9; /* hex.green */
 }
 
-.menu-appbar {
-  background-color: red;
+.account-links {
+  color: black;
+  text-decoration: none;
 }
 
 .page-container {

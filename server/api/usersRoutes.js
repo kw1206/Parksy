@@ -36,14 +36,12 @@ const verifyJWT = (req, res, next) => {
 // USER LOGIN
 ////////////////////
 
-router.post("/api/login/", (req, res) => {
+router.get("/api/login/", (req, res) => {
   // req.body
-  const loginMethod = req.body.loginMethod;
-  const emailOrPhone = req.body.emailOrPhone;
-  const pw = req.body.pw;
+  const email = req.body.email;
 
   // SQL query
-  const getUser = `SELECT * FROM users WHERE ${loginMethod} = "${emailOrPhone}"`;
+  const getUser = `SELECT * FROM users WHERE email = "${email}"`;
   console.log("running -->", getUser);
 
   db.query(getUser, (error, data) => {
@@ -52,47 +50,10 @@ router.post("/api/login/", (req, res) => {
       console.log("login error --> ", error);
       res.json({
         error: error,
-        errorMessage: "There was a problem logging you in. Please try again.",
+        errorMessage: "There was a problem getting your profile data.",
       });
-    }
-
-    // if the request is successful and the user exists
-    if (data.length > 0) {
-      const pwMatch = bcrypt.compareSync(pw, data[0].password);
-      console.log("pwMatch --> ", pwMatch);
-      if (pwMatch) {
-        console.log("passwords match");
-
-        // create JWT for user
-        const user_id = data[0].user_id;
-        const token = jwt.sign({ user_id }, process.env.ACCESS_TOKEN_SECRET, {
-          expiresIn: 300,
-        });
-
-        res.json({
-          authorized: true,
-          token: token,
-          data: {
-            firstName: data[0].firstName,
-            lastName: data[0].lastName,
-            email: data[0].email,
-            phone: data[0].phone,
-            user_id: data[0].user_id,
-            trips: data[0].trips,
-          },
-        });
-      } else {
-        // if the password does not match
-        res.json({
-          errorMessage:
-            "The password you entered is incorrect. Please try again.",
-        });
-      }
     } else {
-      // if a user does not exist
-      res.json({
-        errorMessage: `The user you have entered does not exist. Please try again or click "Register" to create an account.`,
-      });
+      res.json(data[0]);
     }
   });
 });
