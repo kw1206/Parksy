@@ -1,0 +1,7 @@
+.my-info > * {
+    padding: 20px
+}
+.profile-table td {
+    padding: 5px;
+    text-align: left;
+}

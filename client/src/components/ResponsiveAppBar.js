@@ -30,6 +30,8 @@ function ResponsiveAppBar() {
   const [initials, setInitials] = useState([]);
   const { isAuthenticated, user, isLoading } = useAuth0();
 
+  // console.log("user --> ", user.created_at)
+  // console.log("user is authenticated --> ", isAuthenticated)
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY >= 200) {
@@ -46,20 +48,9 @@ function ResponsiveAppBar() {
   }, []);
 
   useEffect(() => {
-    const handleLogin = async () => {
-      // attempt login
-      try {
-        const { data } = await axios.post(
-          "http://localhost:3001/api/login/",
-          user.email
-        );
-        return console.log("data --> ", data);
-      } catch (error) {
-        // if there is any other kind of error during login
-        return console.log(error);
-      }
-    };
-    handleLogin();
+    const updateUserInitials = () => {
+
+    }
   }, [user]);
 
   const handleOpenNavMenu = (event) => {
@@ -187,7 +178,7 @@ function ResponsiveAppBar() {
                     <motion.div>
                       <Avatar
                         id="avatar"
-                        alt=":)"
+                        alt={user.given_name}
                         src="/static/images/avatar/2.jpg"
                       />
                     </motion.div>

@@ -1,0 +1,92 @@
+.form-label {
+  background-color: black;
+  color: white;
+  padding: 0px 5px;
+  display: inline-block;
+}
+
+td {
+    text-align: left;
+    min-width: 150px;
+    padding: 10px;
+    font-size: 20px;
+    border: 2px solid red
+}
+
+.date-picker-div {
+  display: flex;
+  /* border: 2px solid red; */
+  width: 320px;
+  justify-content: space-between;
+}
+.date-picker-div .MuiInputBase-root {
+  width: 170px;
+  /* border: 2px solid red */
+}
+
+.MuiInputLabel-root {
+  color: white;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: white;
+}
+
+.MuiPickersYear-root > * {
+  margin: 0;
+}
+
+.MuiDateCalendar-root,
+.MuiList-root,
+.MuiAutocomplete-listbox {
+  background-color: #3a3b3b;
+  border: 2px solid white;
+}
+
+.MuiDayCalendar-header span,
+.MuiDayCalendar-weekContainer button {
+  color: white;
+}
+
+.MuiTypography-root,
+.MuiTypography-caption,
+.MuiTypography-root-MuiDayCalendar-weekDayLabel {
+  color: white;
+}
+.MuiTypography-root-MuiDayCalendar-weekDayLabel,
+.MuiButtonBase-root-MuiPickersDay-root {
+  color: white;
+}
+
+.companion-options {
+  display: flex;
+}
+.companion-div {
+  color: white;
+  box-shadow: 0;
+  border: 2px solid white;
+  padding: 5px;
+  margin-right: 5px;
+  width: fit-content;
+}
+
+.companion-div:hover {
+  cursor: pointer;
+}
+
+.companion-not-selected {
+  background-color: black;
+}
+
+.solo-selected {
+  background-color: #ff8838;
+}
+.couple-selected {
+  background-color: #d37ad6;
+}
+.family-selected {
+  background-color: #a376bb;
+}
+.friends-selected {
+  background-color: #0298c9;
+}

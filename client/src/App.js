@@ -19,7 +19,7 @@ function App() {
           <ResponsiveAppBar />
           <AnimatedRoutes />
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </Auth0ProviderWithHistory>
   );
