@@ -19,11 +19,25 @@ router.get("/", (req, res) => {
 });
 
 // GET PARK BY ID
-router.get("/:id", (req, res) => {
+router.get("/id/:id", (req, res) => {
   const id = req.params.id;
-  const getPark = `SELECT * FROM parks WHERE park_id = ${id}`;
-  console.log("running -->", getPark);
-  db.query(getPark, (error, data) => {
+  const getParkByID = `SELECT * FROM parks WHERE park_id = ${id}`;
+  console.log("running -->", getParkByID);
+  db.query(getParkByID, (error, data) => {
+    if (error) {
+      console.log(error);
+      return res.json(error);
+    }
+    return res.json(data);
+  });
+});
+
+// GET PARK BY NAME
+router.get("/name/:name", (req, res) => {
+  const name = req.params.name;
+  const getParkByName = `SELECT * FROM parks WHERE park_name = "${name}"`;
+  console.log("running -->", getParkByName);
+  db.query(getParkByName, (error, data) => {
     if (error) {
       console.log(error);
       return res.json(error);

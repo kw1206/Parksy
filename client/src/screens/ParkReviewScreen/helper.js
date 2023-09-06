@@ -24,7 +24,10 @@ export function getWeeksBetweenDates(startDate, endDate) {
       // Move to the next day
       currentDate.setUTCDate(currentDate.getUTCDate() + 1);
     }
-    return weeks;
+
+    let total = 0
+    weeks.forEach((week) => total += week)
+    return (total / weeks.length);
   }
 
 // module.export(getWeek)

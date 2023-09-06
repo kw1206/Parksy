@@ -51,7 +51,7 @@ const Home = () => {
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.6, duration: 2 }}
                     >
-                      National Park planning made easy
+                      plan the best National Park trip for you
                     </motion.p>
                   </div>
                   <motion.div

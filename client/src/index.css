@@ -26,6 +26,7 @@ html {
   width: 100%;
   min-width: 360px;
   margin: auto;
+  border: 2px solid green;
 }
 
 .App {
@@ -96,4 +97,15 @@ html {
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.4);
+}
+
+.smooth-transition {
+  opacity: 1;
+  max-height: 500px; /* Set an appropriate max height for your content */
+  overflow: hidden;
+  transition: opacity 1s ease, max-height 1s ease; /* Transition properties */
+}
+
+.smooth-transition.hidden {
+  visibility: hidden;
 }

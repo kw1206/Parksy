@@ -11,19 +11,21 @@ import { Autocomplete } from "@mui/material";
 import { FormGroup, FormControl, FormLabel, InputLabel } from "@mui/material";
 require("../ParkReviewScreen.css");
 
-const BasicTripInfo = (params) => {
+const BasicReview = (params) => {
   const {
     park,
     tripStart,
     tripEnd,
-    rating,
+    overallRating,
     setPark,
     setTripStart,
     setTripEnd,
-    setRating,
+    setOverallRating,
+    paginate,
   } = params;
 
-  const [allParks, setAllParks] = useState(null);
+  const [allParks, setAllParks] = useState([]);
+  const [selectedPark, setSelectedPark] = useState("");
 
   useEffect(() => {
     const fetchAllParks = async () => {
@@ -31,57 +33,58 @@ const BasicTripInfo = (params) => {
         const res = await axios.get("http://localhost:3001/api/parks");
         const parkNames = res.data.map((park) => park.park_name);
         setAllParks(parkNames);
-        console.log(parkNames);
-        // setAutoResultsParks(res.data.map((park) => park.park_name).sort());
       } catch (error) {
         console.log(error);
       }
     };
-
     fetchAllParks();
   }, []);
 
-  return (
+  return allParks.length > 0 ? (
     <div
-      className="basic-trip-info"
-      style={{
-        border: "2px solid red",
-        margin: 'auto'
-        // display: "flex",
-        // flexDirection: "column",
-      }}
+      className="review-section-container"
+      style={{ boxShadow: "0px 0px 300px 50px #0d6f5c" }}
     >
-      <h1>How was your National Park visit?</h1>
-      <h3>Please share some basic information about your trip to begin your review.</h3>
+      <div
+        style={{
+          backgroundColor: "#0d6f5c",
+          padding: "20px",
+          borderRadius: "4px",
+        }}
+      >
+        <div className="review-header">Overall Experience</div>
+        <p>Share the basics of your trip</p>
+      </div>
       <table>
         <tbody>
-          <tr>
+          <tr className="basic-tr">
             <td>Park</td>
             <td>
               <FormControl>
                 <Autocomplete
-                  label={<span className="form-label">park visited</span>}
-                  disablePortal
+                  inputValue={selectedPark}
                   options={allParks}
-                  sx={{ width: 300 }}
+                  sx={{ width: "300px" }}
                   onChange={(e) => {
                     setPark(e.target.textContent);
+                    setSelectedPark(e.target.textContent);
                   }}
                   renderInput={(params) => (
                     <TextField
                       {...params}
+                      placeholder="National Park"
                       inputProps={{
                         ...params.inputProps,
                         style: { color: "white" }, // Apply the text color here as well
                       }}
-                      label={<span className="form-label">park visited</span>}
+                      // label={<span className="form-label">park visited</span>}
                     />
                   )}
                 />
               </FormControl>
             </td>
           </tr>
-          <tr>
+          <tr className="basic-tr">
             <td>Trip dates</td>
             <td>
               <div className="date-picker-div">
@@ -89,20 +92,22 @@ const BasicTripInfo = (params) => {
                   <FormControl>
                     <DatePicker
                       required
-                      label={<span className="form-label">start</span>}
+                      // label={<span className="form-label">start</span>}
                       sx={{
                         "& .MuiInputBase-input": {
                           color: "white",
                         },
                       }}
+                      // placeholder="start"
                       onChange={(newStart) => setTripStart(newStart)}
                       value={tripStart}
                     />
                   </FormControl>
+                  <p style={{ padding: "5px" }}>to</p>
                   <FormControl>
                     <DatePicker
                       required
-                      label={<span className="form-label">end</span>}
+                      // label={<span className="form-label">end</span>}
                       sx={{
                         "& .MuiInputBase-input": {
                           color: "white",
@@ -116,15 +121,15 @@ const BasicTripInfo = (params) => {
               </div>
             </td>
           </tr>
-          <tr>
+          <tr className="basic-tr">
             <td>Overall rating</td>
             <td>
               <FormControl>
                 <Rating
-                  value={rating}
+                  value={Number(overallRating)}
                   label={<span className="form-label">rating</span>}
                   onChange={(e) => {
-                    setRating(e.target.value);
+                    setOverallRating(Number(e.target.value));
                   }}
                 />
               </FormControl>
@@ -132,9 +137,21 @@ const BasicTripInfo = (params) => {
           </tr>
         </tbody>
       </table>
-      {park && tripStart && tripEnd && rating ? <button>Next</button> : null}
+      {park && tripStart && tripEnd && overallRating && (
+        <div className="back-next-buttons" style={{ justifyContent: "center" }}>
+          <div
+            onClick={() => paginate(1)}
+            className="next-button"
+            id="basic-next"
+          >
+            Next
+          </div>
+        </div>
+      )}
     </div>
+  ) : (
+    <></>
   );
 };
 
-export default BasicTripInfo;
+export default BasicReview;

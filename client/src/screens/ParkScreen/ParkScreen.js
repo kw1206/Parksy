@@ -18,11 +18,12 @@ const ParkScreen = () => {
   const [viewState, setViewState] = useState({});
   const [toDo, setToDo] = useState([]);
   const [toSee, setToSee] = useState([]);
+  const [trips, setTrips] = useState([]);
 
   useEffect(() => {
     const fetchPark = async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/api/parks/${id}`);
+        const res = await axios.get(`http://localhost:3001/api/parks/id/${id}`);
         setPark(res.data[0]);
         setViewState({
           latitude: res.data[0].latitude,
@@ -46,78 +47,114 @@ const ParkScreen = () => {
       }
     };
     fetchActivities();
-}, [id]);
 
-useEffect(() => {
+    const fetchTrips = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:3001/api/trips/park-id/${id}`
+        );
+        console.log(res.data);
+        setTrips(res.data);
+      } catch (error) {}
+    };
+    fetchTrips();
+  }, [id]);
+
+  useEffect(() => {
     const getActivityDetails = () => {
-      const toDoActivities = activities.filter(activity => activity.do === 1);
+      const toDoActivities = activities.filter((activity) => activity.do === 1);
       setToDo(toDoActivities);
-      const toSeeActivities = activities.filter(activity => activity.see === 1);
+      const toSeeActivities = activities.filter(
+        (activity) => activity.see === 1
+      );
       setToSee(toSeeActivities);
     };
     getActivityDetails();
-}, [activities])
+  }, [activities]);
 
   return (
-    <motion.div
-      className="page-container"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="park-banner">
-        <img
-          className="park-banner-image"
-          alt={`${park.park_name}`}
-          src={park.photo}
-        />
-        <div className="park-banner-copy">
-          <motion.p className="park-banner-title">{park.park_name}</motion.p>
-          <p className="park-banner-state">{park.state}</p>
-          <SmallScrollBounce />
+    park.park_name && (
+      <motion.div
+        className="page-container"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="park-banner">
+          <img
+            className="park-banner-image"
+            alt={`${park.park_name}`}
+            src={park.photo}
+          />
+          <div className="park-banner-copy">
+            <motion.p className="park-banner-title">{park.park_name}</motion.p>
+            <p className="park-banner-state">{park.state}</p>
+            <SmallScrollBounce />
+          </div>
         </div>
-      </div>
-      <div className="park-copy">
-        <div className="park-info-header">
-          <p>Explore {park.park_name}</p>
-        </div>
-        <div className="park-info-container">
-          <div className="park-facts">
-            <p id="about-park">About</p>
-            <motion.p>{park.desc}</motion.p>
-            <p>
-              {park.state} ({park.latitude}, {park.longitude})
-            </p>
-            <p>Established {park.est}</p>
-            <p>
-              Visit the <a href={park.url}>official site</a>
-            </p>
-            {/* <Map
+        <div className="park-copy">
+          <div className="park-info-header">
+            <p>Explore {park.park_name}</p>
+          </div>
+          <div className="park-info-container">
+            <div className="park-facts">
+              <p id="about-park">About</p>
+              <motion.p>{park.desc}</motion.p>
+              <p>
+                {park.state} ({park.latitude}, {park.longitude})
+              </p>
+              <p>Established {park.est}</p>
+              <p>
+                Visit the <a href={park.url}>official site</a>
+              </p>
+              {/* <Map
                 initalViewState={viewState}
                 mapStyle={MAP_STYLE}
                 mapboxAccessToken={TOKEN}
                 ></Map> */}
-          </div>
-          <div className="park-visit">
-            <p>Visit</p>
-            <p>Recommended stay: {park.rec_stay}</p>
-            <p>Things to do</p>
-            <ul>
-              {toDo.map((el) => (
-                <li key={(el.activity_id)}>{el.activity}</li>
-              ))}
-            </ul>
-            <p>Things to see</p>
-            <ul>
-              {toSee.map((el) => (
-                <li key={(el.activity_id)}>{el.activity}</li>
-              ))}
-            </ul>
+            </div>
+            <div>
+              <h1>Parksy Perspective</h1>
+              <div style={{ border: "2px solid white" }}>
+                <h3>Best overall</h3>
+                <p>
+                  The highest-rated time to visit {park.park_name} is the ___th
+                  week of the year
+                </p>
+                <p>During the best travel week, the weather was ___.</p>
+                <p>During the best travel week, the crowds were ___.</p>
+                <p>The most popular activities are ___.</p>
+              </div>
+              <div style={{ border: "2px solid white" }}>
+                <h3>See other times to travel</h3>
+                <p>..........</p>
+              </div>
+              <div style={{ border: "2px solid white" }}>
+                <h3>Top Tips</h3>
+                <p>..........</p>
+              </div>
+            </div>
+            <div className="park-visit">
+              <p>Visit</p>
+              <p>Recommended stay: {park.rec_stay}</p>
+              <p>Things to do</p>
+              <ul>
+                {toDo.map((el) => (
+                  <li key={el.activity_id}>{el.activity}</li>
+                ))}
+              </ul>
+              <p>Things to see</p>
+              <ul>
+                {toSee.map((el) => (
+                  <li key={el.activity_id}>{el.activity}</li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    )
   );
 };
 

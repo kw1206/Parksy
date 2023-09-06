@@ -1,0 +1,84 @@
+.MuiInputLabel-root {
+  color: white;
+  /* border-bottom: 2px solid white */
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: white;
+  border-bottom: 2px solid white
+
+}
+
+.MuiPickersYear-root > * {
+  margin: 0;
+}
+
+.MuiDateCalendar-root,
+.MuiList-root,
+.MuiAutocomplete-listbox {
+  background-color: #3a3b3b;
+  border: 2px solid white;
+}
+
+.MuiDayCalendar-header span,
+.MuiDayCalendar-weekContainer button {
+  color: white;
+  /* border-bottom: 2px solid white */
+}
+
+.MuiTypography-root,
+.MuiTypography-caption,
+.MuiTypography-root-MuiDayCalendar-weekDayLabel {
+  color: white;
+  border: 2px solid white;
+}
+.MuiTypography-root-MuiDayCalendar-weekDayLabel,
+.MuiButtonBase-root-MuiPickersDay-root {
+  color: white;
+  border: 2px solid white;
+
+}
+
+.form-label {
+  background-color: black;
+  color: white;
+  padding: 0px 5px;
+  display: inline-block;
+  border: 2px solid white;
+  border-radius: 4px;
+
+}
+
+.MuiOutlinedInput-root {
+  border: 2px solid white;
+  /* padding: 10px; */
+  width: 40%
+}
+
+.MuiInputBase-root {
+  border: 2px solid white;
+  color: white;
+  border-radius: 4px;
+  width: 300px
+}
+
+.MuiSwitch-switchBase.Mui-checked {
+}
+
+.MuiSwitch-switchBase {
+  border: 2px solid white;
+  
+}
+
+.MuiSwitch-track {
+  border: 2px solid white;
+  background-color: transparent;
+}
+
+/* .MuiSwitch-thumb {
+  color: red;
+} */
+
+.MuiSelect-nativeInput {
+  color: white
+}
