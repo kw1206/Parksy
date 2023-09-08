@@ -52,6 +52,9 @@ const AdviceReview = (params) => {
     "Food",
     "Accommodations",
     "Park activities",
+    "Surrounding area",
+    "Accessibility",
+    "Gear",
   ];
 
   return (
